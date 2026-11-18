@@ -1,0 +1,54 @@
+{
+  "project": "Shield 56",
+  "synthetic": true,
+  "schema_version": 1,
+  "seed": 56,
+  "scenario_date": "2026-01-15",
+  "datasets": {
+    "normal_activity": {
+      "synthetic": true,
+      "record_count": 15,
+      "intentionally_invalid": false,
+      "files": {
+        "csv": {
+          "filename": "normal_activity.synthetic.csv",
+          "sha256": "ec09aa424c70d13e715d215dd1158fcf24ae240121bb6d6de92a4cf9bd4c6554"
+        },
+        "jsonl": {
+          "filename": "normal_activity.synthetic.jsonl",
+          "sha256": "15aabb09ee06ab5553216ceaef9d99fa14af658f4b504a31119ccaf9f6dd33c2"
+        }
+      }
+    },
+    "suspicious_sequence": {
+      "synthetic": true,
+      "record_count": 19,
+      "intentionally_invalid": false,
+      "files": {
+        "csv": {
+          "filename": "suspicious_sequence.synthetic.csv",
+          "sha256": "4af7c362bbb1c377077145074af3d034a6e319fe74495163eae7fec1c832c780"
+        },
+        "jsonl": {
+          "filename": "suspicious_sequence.synthetic.jsonl",
+          "sha256": "bbbd2f0001d2ce88ea3f0b75c65192eade995cb638806ff3551213e4f2a16455"
+        }
+      }
+    },
+    "edge_cases": {
+      "synthetic": true,
+      "record_count": 10,
+      "intentionally_invalid": true,
+      "files": {
+        "csv": {
+          "filename": "edge_cases.synthetic.csv",
+          "sha256": "8189e8ab64d47f879b5b8326412c74be0863de66c622e9f5445471ffb21bd5bb"
+        },
+        "jsonl": {
+          "filename": "edge_cases.synthetic.jsonl",
+          "sha256": "ea8e61043592db01f430244849b313171be2ab24f7fd45427ad306f4ba2ebfac"
+        }
+      }
+    }
+  }
+}

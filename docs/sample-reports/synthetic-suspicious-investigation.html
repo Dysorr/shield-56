@@ -1,0 +1,1417 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'"><title>Shield 56 — Incident Investigation Report</title><style>body{font:16px/1.5 system-ui,sans-serif;color:#111;background:#fff;max-width:1000px;margin:32px auto;padding:0 20px}h1{border-bottom:3px solid #111}h2{font-size:20px;margin-top:32px}pre{white-space:pre-wrap;overflow-wrap:anywhere;border:1px solid #777;padding:16px;font-size:13px}@media print{body{margin:0;max-width:none}h2{break-after:avoid}pre{font-size:10px}}</style></head><body><h1>Shield 56 — Incident Investigation Report</h1><section><h2>Case identity and analysis time</h2><pre>{
+  &quot;application_version&quot;: &quot;0.1.0&quot;,
+  &quot;case_title&quot;: &quot;Synthetic suspicious-sequence training case&quot;,
+  &quot;generated_at_utc&quot;: &quot;2026-11-18T08:12:45.324491+00:00&quot;,
+  &quot;report_id&quot;: &quot;8d2a794606fdfdd5f257c5645b2b6b6b00fc8b2855de11373f0ebfc9226db8e4&quot;,
+  &quot;report_version&quot;: &quot;1.0&quot;,
+  &quot;scope&quot;: &quot;FULL CASE: all imported evidence and current findings. Timeline and finding display filters do not apply.&quot;,
+  &quot;synthetic_data_label&quot;: &quot;SYNTHETIC DATA — all input bytes match bundled training fixtures&quot;
+}</pre></section><section><h2>Executive summary</h2><pre>{
+  &quot;distinct_events&quot;: 19,
+  &quot;findings&quot;: 3,
+  &quot;first_event_utc&quot;: &quot;2026-01-15T07:01:00+00:00&quot;,
+  &quot;interpretation&quot;: &quot;Review the findings and supporting evidence.&quot;,
+  &quot;last_event_utc&quot;: &quot;2026-01-15T09:08:00+00:00&quot;,
+  &quot;source_occurrences&quot;: 19
+}</pre></section><section><h2>Import counts and denominators</h2><pre>{
+  &quot;accepted_occurrences&quot;: 19,
+  &quot;denominators&quot;: &quot;Input = accepted + rejected; accepted includes duplicates. Distinct events = accepted minus duplicates. Unreadable files have zero input records.&quot;,
+  &quot;distinct_events&quot;: 19,
+  &quot;duplicate_occurrences&quot;: 0,
+  &quot;files&quot;: 1,
+  &quot;input_records&quot;: 19,
+  &quot;rejected_records&quot;: 0
+}</pre></section><section><h2>Active rules and configuration</h2><pre>{
+  &quot;configuration&quot;: {
+    &quot;failure_threshold&quot;: 5,
+    &quot;failure_window_minutes&quot;: 5,
+    &quot;success_window_minutes&quot;: 10,
+    &quot;task_window_minutes&quot;: 15
+  },
+  &quot;exclusions&quot;: {
+    &quot;R1 failures missing grouping fields&quot;: 0,
+    &quot;R2 successes missing grouping fields or logon type&quot;: 0,
+    &quot;R3 tasks missing account/domain or nonzero session ID&quot;: 0
+  },
+  &quot;rule_versions&quot;: {
+    &quot;R1&quot;: &quot;1.0.0&quot;,
+    &quot;R2&quot;: &quot;1.0.0&quot;,
+    &quot;R3&quot;: &quot;1.0.0&quot;
+  }
+}</pre></section><section><h2>Source files and hashes</h2><pre>[
+  {
+    &quot;accepted&quot;: 19,
+    &quot;assumed_timezone&quot;: null,
+    &quot;byte_count&quot;: 2634,
+    &quot;duplicates&quot;: 0,
+    &quot;file_error&quot;: null,
+    &quot;filename&quot;: &quot;suspicious_sequence.synthetic.csv&quot;,
+    &quot;import_id&quot;: &quot;import_1&quot;,
+    &quot;imported_at&quot;: &quot;2026-11-18T08:12:45.322346+00:00&quot;,
+    &quot;input_records&quot;: 19,
+    &quot;new_events&quot;: 19,
+    &quot;rejected&quot;: 0,
+    &quot;sha256&quot;: &quot;4af7c362bbb1c377077145074af3d034a6e319fe74495163eae7fec1c832c780&quot;
+  }
+]</pre></section><section><h2>Parser warnings and timezone assumptions</h2><pre>{
+  &quot;assumptions&quot;: [],
+  &quot;file_errors&quot;: [],
+  &quot;validation_warnings&quot;: []
+}</pre></section><section><h2>Relevant UTC timeline</h2><pre>{
+  &quot;events&quot;: [
+    {
+      &quot;channel&quot;: &quot;Security&quot;,
+      &quot;event_id&quot;: 4625,
+      &quot;event_key&quot;: &quot;75ac8fd0308b5e0bee2354bd8cccc10de5327ec6f86add5e025b5ae27aabff82&quot;,
+      &quot;hostname&quot;: &quot;lab-pc01&quot;,
+      &quot;logon_type&quot;: 3,
+      &quot;provider&quot;: &quot;Microsoft-Windows-Security-Auditing&quot;,
+      &quot;record_id&quot;: 2101,
+      &quot;source_ip&quot;: &quot;192.0.2.10&quot;,
+      &quot;subject_domain&quot;: null,
+      &quot;subject_logon_id&quot;: null,
+      &quot;subject_user&quot;: null,
+      &quot;target_domain&quot;: &quot;lab&quot;,
+      &quot;target_logon_id&quot;: null,
+      &quot;target_user&quot;: &quot;alice&quot;,
+      &quot;task_content&quot;: null,
+      &quot;task_name&quot;: null,
+      &quot;timestamp&quot;: &quot;2026-01-15T09:00:00.000000Z&quot;
+    },
+    {
+      &quot;channel&quot;: &quot;Security&quot;,
+      &quot;event_id&quot;: 4625,
+      &quot;event_key&quot;: &quot;1dfda011dbe127b19aed027b04e313559b3198cb5e6fde29995f0ab39e12e336&quot;,
+      &quot;hostname&quot;: &quot;lab-pc01&quot;,
+      &quot;logon_type&quot;: 3,
+      &quot;provider&quot;: &quot;Microsoft-Windows-Security-Auditing&quot;,
+      &quot;record_id&quot;: 2102,
+      &quot;source_ip&quot;: &quot;192.0.2.10&quot;,
+      &quot;subject_domain&quot;: null,
+      &quot;subject_logon_id&quot;: null,
+      &quot;subject_user&quot;: null,
+      &quot;target_domain&quot;: &quot;lab&quot;,
+      &quot;target_logon_id&quot;: null,
+      &quot;target_user&quot;: &quot;alice&quot;,
+      &quot;task_content&quot;: null,
+      &quot;task_name&quot;: null,
+      &quot;timestamp&quot;: &quot;2026-01-15T09:01:00.000000Z&quot;
+    },
+    {
+      &quot;channel&quot;: &quot;Security&quot;,
+      &quot;event_id&quot;: 4625,
+      &quot;event_key&quot;: &quot;1138223c1a0ac56c27fe370dac28bda37ef7d94359d331cb701e7a4b9bc067f2&quot;,
+      &quot;hostname&quot;: &quot;lab-pc01&quot;,
+      &quot;logon_type&quot;: 3,
+      &quot;provider&quot;: &quot;Microsoft-Windows-Security-Auditing&quot;,
+      &quot;record_id&quot;: 2103,
+      &quot;source_ip&quot;: &quot;192.0.2.10&quot;,
+      &quot;subject_domain&quot;: null,
+      &quot;subject_logon_id&quot;: null,
+      &quot;subject_user&quot;: null,
+      &quot;target_domain&quot;: &quot;lab&quot;,
+      &quot;target_logon_id&quot;: null,
+      &quot;target_user&quot;: &quot;alice&quot;,
+      &quot;task_content&quot;: null,
+      &quot;task_name&quot;: null,
+      &quot;timestamp&quot;: &quot;2026-01-15T09:02:00.000000Z&quot;
+    },
+    {
+      &quot;channel&quot;: &quot;Security&quot;,
+      &quot;event_id&quot;: 4625,
+      &quot;event_key&quot;: &quot;38851c164e5eb4a1b1e955713ee627f3ef355ebf76be35fe37dcd5ef9cc57386&quot;,
+      &quot;hostname&quot;: &quot;lab-pc01&quot;,
+      &quot;logon_type&quot;: 3,
+      &quot;provider&quot;: &quot;Microsoft-Windows-Security-Auditing&quot;,
+      &quot;record_id&quot;: 2104,
+      &quot;source_ip&quot;: &quot;192.0.2.10&quot;,
+      &quot;subject_domain&quot;: null,
+      &quot;subject_logon_id&quot;: null,
+      &quot;subject_user&quot;: null,
+      &quot;target_domain&quot;: &quot;lab&quot;,
+      &quot;target_logon_id&quot;: null,
+      &quot;target_user&quot;: &quot;alice&quot;,
+      &quot;task_content&quot;: null,
+      &quot;task_name&quot;: null,
+      &quot;timestamp&quot;: &quot;2026-01-15T09:03:00.000000Z&quot;
+    },
+    {
+      &quot;channel&quot;: &quot;Security&quot;,
+      &quot;event_id&quot;: 4625,
+      &quot;event_key&quot;: &quot;7c7e218149ab589f0137d1dd3e3141a355ac674b0ad89fc7208ec6724348e599&quot;,
+      &quot;hostname&quot;: &quot;lab-pc01&quot;,
+      &quot;logon_type&quot;: 3,
+      &quot;provider&quot;: &quot;Microsoft-Windows-Security-Auditing&quot;,
+      &quot;record_id&quot;: 2105,
+      &quot;source_ip&quot;: &quot;192.0.2.10&quot;,
+      &quot;subject_domain&quot;: null,
+      &quot;subject_logon_id&quot;: null,
+      &quot;subject_user&quot;: null,
+      &quot;target_domain&quot;: &quot;lab&quot;,
+      &quot;target_logon_id&quot;: null,
+      &quot;target_user&quot;: &quot;alice&quot;,
+      &quot;task_content&quot;: null,
+      &quot;task_name&quot;: null,
+      &quot;timestamp&quot;: &quot;2026-01-15T09:04:00.000000Z&quot;
+    },
+    {
+      &quot;channel&quot;: &quot;Security&quot;,
+      &quot;event_id&quot;: 4624,
+      &quot;event_key&quot;: &quot;e8bd2740332db23f4601cfbacbd90d5b2e441e1214f23be5f75474a675fcfd01&quot;,
+      &quot;hostname&quot;: &quot;lab-pc01&quot;,
+      &quot;logon_type&quot;: 3,
+      &quot;provider&quot;: &quot;Microsoft-Windows-Security-Auditing&quot;,
+      &quot;record_id&quot;: 2106,
+      &quot;source_ip&quot;: &quot;192.0.2.10&quot;,
+      &quot;subject_domain&quot;: null,
+      &quot;subject_logon_id&quot;: null,
+      &quot;subject_user&quot;: null,
+      &quot;target_domain&quot;: &quot;lab&quot;,
+      &quot;target_logon_id&quot;: &quot;0x1234&quot;,
+      &quot;target_user&quot;: &quot;alice&quot;,
+      &quot;task_content&quot;: null,
+      &quot;task_name&quot;: null,
+      &quot;timestamp&quot;: &quot;2026-01-15T09:05:00.000000Z&quot;
+    },
+    {
+      &quot;channel&quot;: &quot;Security&quot;,
+      &quot;event_id&quot;: 4698,
+      &quot;event_key&quot;: &quot;285ce62c6ebca44e31a5ec6de3a66a79aa201eb4c86144d628980ad81a0e39e2&quot;,
+      &quot;hostname&quot;: &quot;lab-pc01&quot;,
+      &quot;logon_type&quot;: null,
+      &quot;provider&quot;: &quot;Microsoft-Windows-Security-Auditing&quot;,
+      &quot;record_id&quot;: 2107,
+      &quot;source_ip&quot;: null,
+      &quot;subject_domain&quot;: &quot;lab&quot;,
+      &quot;subject_logon_id&quot;: &quot;0x1234&quot;,
+      &quot;subject_user&quot;: &quot;alice&quot;,
+      &quot;target_domain&quot;: null,
+      &quot;target_logon_id&quot;: null,
+      &quot;target_user&quot;: null,
+      &quot;task_content&quot;: &quot;&lt;Task version=\&quot;1.2\&quot;&gt;&lt;Actions&gt;&lt;Exec&gt;&lt;Command&gt;cmd.exe&lt;/Command&gt;&lt;Arguments&gt;/c echo SHIELD56_SYNTHETIC_MARKER&amp;gt; \&quot;%TEMP%\\shield56_synthetic_marker.txt\&quot;&lt;/Arguments&gt;&lt;/Exec&gt;&lt;/Actions&gt;&lt;/Task&gt;&quot;,
+      &quot;task_name&quot;: &quot;\\Shield56\\SyntheticSequenceMarker&quot;,
+      &quot;timestamp&quot;: &quot;2026-01-15T09:08:00.000000Z&quot;
+    }
+  ],
+  &quot;scope&quot;: &quot;All finding-supporting distinct events&quot;
+}</pre></section><section><h2>Case conclusion — saved analyst judgment</h2><pre>{
+  &quot;disposition&quot;: &quot;needs investigation&quot;,
+  &quot;saved_at_utc&quot;: null,
+  &quot;status&quot;: &quot;not saved&quot;,
+  &quot;text&quot;: &quot;&quot;
+}</pre></section><section><h2>Finding 1 — R1</h2><pre>{
+  &quot;account&quot;: &quot;lab\\alice&quot;,
+  &quot;analyst_checks&quot;: [
+    &quot;Verify the source IP, target account, logon type, and failure status in the original events.&quot;,
+    &quot;Compare expected user activity, authentication infrastructure, and endpoint logs.&quot;
+  ],
+  &quot;analyst_note&quot;: null,
+  &quot;benign_explanations&quot;: [
+    &quot;A user may be retrying an outdated or mistyped password.&quot;,
+    &quot;A service, mapped drive, or scheduled client may retain stale credentials.&quot;
+  ],
+  &quot;explanation&quot;: &quot;5 distinct failed-logon events support this episode. At least 5 occurred within an inclusive rolling 5-minute window. Overlapping qualifying windows share evidence and form one episode; this may reflect retries or other causes.&quot;,
+  &quot;finding_id&quot;: &quot;R1-db715d04005f598ed152175425060760b252e1cac8009678aefd6fab2bbcdadf&quot;,
+  &quot;first_utc&quot;: &quot;2026-01-15T09:00:00+00:00&quot;,
+  &quot;hostname&quot;: &quot;lab-pc01&quot;,
+  &quot;last_utc&quot;: &quot;2026-01-15T09:04:00+00:00&quot;,
+  &quot;related_finding_ids&quot;: [],
+  &quot;rule_id&quot;: &quot;R1&quot;,
+  &quot;rule_name&quot;: &quot;Repeated failed logons&quot;,
+  &quot;rule_version&quot;: &quot;1.0.0&quot;,
+  &quot;severity&quot;: &quot;Medium&quot;,
+  &quot;severity_rationale&quot;: &quot;A concentrated authentication failure episode warrants review; it does not establish compromise.&quot;,
+  &quot;source_ip&quot;: &quot;192.0.2.10&quot;,
+  &quot;supporting_event_keys&quot;: [
+    &quot;75ac8fd0308b5e0bee2354bd8cccc10de5327ec6f86add5e025b5ae27aabff82&quot;,
+    &quot;1dfda011dbe127b19aed027b04e313559b3198cb5e6fde29995f0ab39e12e336&quot;,
+    &quot;1138223c1a0ac56c27fe370dac28bda37ef7d94359d331cb701e7a4b9bc067f2&quot;,
+    &quot;38851c164e5eb4a1b1e955713ee627f3ef355ebf76be35fe37dcd5ef9cc57386&quot;,
+    &quot;7c7e218149ab589f0137d1dd3e3141a355ac674b0ad89fc7208ec6724348e599&quot;
+  ],
+  &quot;supporting_event_references&quot;: [
+    &quot;4af7c362bbb1c377077145074af3d034a6e319fe74495163eae7fec1c832c780:record:13&quot;,
+    &quot;4af7c362bbb1c377077145074af3d034a6e319fe74495163eae7fec1c832c780:record:14&quot;,
+    &quot;4af7c362bbb1c377077145074af3d034a6e319fe74495163eae7fec1c832c780:record:15&quot;,
+    &quot;4af7c362bbb1c377077145074af3d034a6e319fe74495163eae7fec1c832c780:record:16&quot;,
+    &quot;4af7c362bbb1c377077145074af3d034a6e319fe74495163eae7fec1c832c780:record:17&quot;
+  ]
+}</pre></section><section><h2>Finding 2 — R2</h2><pre>{
+  &quot;account&quot;: &quot;lab\\alice&quot;,
+  &quot;analyst_checks&quot;: [
+    &quot;Confirm the success belongs to the expected user, source address, host, and logon type.&quot;,
+    &quot;Review MFA/identity-provider records, endpoint activity, and the target logon session.&quot;
+  ],
+  &quot;analyst_note&quot;: null,
+  &quot;benign_explanations&quot;: [
+    &quot;The legitimate user may have corrected a password after repeated attempts.&quot;,
+    &quot;A service credential may have been updated during troubleshooting.&quot;
+  ],
+  &quot;explanation&quot;: &quot;A successful logon followed the final failed event in the episode, within 10 minutes, with matching host, target account/domain, source IP and compatible logon type. The earliest eligible success is selected; legitimate password correction remains possible.&quot;,
+  &quot;finding_id&quot;: &quot;R2-51d98b0c5c015cd7f3cba0ce2c6eb7c460ee44466c02f00d0c8ec9cb915d3189&quot;,
+  &quot;first_utc&quot;: &quot;2026-01-15T09:00:00+00:00&quot;,
+  &quot;hostname&quot;: &quot;lab-pc01&quot;,
+  &quot;last_utc&quot;: &quot;2026-01-15T09:05:00+00:00&quot;,
+  &quot;related_finding_ids&quot;: [
+    &quot;R1-db715d04005f598ed152175425060760b252e1cac8009678aefd6fab2bbcdadf&quot;
+  ],
+  &quot;rule_id&quot;: &quot;R2&quot;,
+  &quot;rule_name&quot;: &quot;Successful logon following repeated failures&quot;,
+  &quot;rule_version&quot;: &quot;1.0.0&quot;,
+  &quot;severity&quot;: &quot;High&quot;,
+  &quot;severity_rationale&quot;: &quot;A compatible success after repeated failures raises investigation priority; successful authentication is not proof of account compromise.&quot;,
+  &quot;source_ip&quot;: &quot;192.0.2.10&quot;,
+  &quot;supporting_event_keys&quot;: [
+    &quot;75ac8fd0308b5e0bee2354bd8cccc10de5327ec6f86add5e025b5ae27aabff82&quot;,
+    &quot;1dfda011dbe127b19aed027b04e313559b3198cb5e6fde29995f0ab39e12e336&quot;,
+    &quot;1138223c1a0ac56c27fe370dac28bda37ef7d94359d331cb701e7a4b9bc067f2&quot;,
+    &quot;38851c164e5eb4a1b1e955713ee627f3ef355ebf76be35fe37dcd5ef9cc57386&quot;,
+    &quot;7c7e218149ab589f0137d1dd3e3141a355ac674b0ad89fc7208ec6724348e599&quot;,
+    &quot;e8bd2740332db23f4601cfbacbd90d5b2e441e1214f23be5f75474a675fcfd01&quot;
+  ],
+  &quot;supporting_event_references&quot;: [
+    &quot;4af7c362bbb1c377077145074af3d034a6e319fe74495163eae7fec1c832c780:record:13&quot;,
+    &quot;4af7c362bbb1c377077145074af3d034a6e319fe74495163eae7fec1c832c780:record:14&quot;,
+    &quot;4af7c362bbb1c377077145074af3d034a6e319fe74495163eae7fec1c832c780:record:15&quot;,
+    &quot;4af7c362bbb1c377077145074af3d034a6e319fe74495163eae7fec1c832c780:record:16&quot;,
+    &quot;4af7c362bbb1c377077145074af3d034a6e319fe74495163eae7fec1c832c780:record:17&quot;,
+    &quot;4af7c362bbb1c377077145074af3d034a6e319fe74495163eae7fec1c832c780:record:18&quot;
+  ]
+}</pre></section><section><h2>Finding 3 — R3</h2><pre>{
+  &quot;account&quot;: &quot;lab\\alice&quot;,
+  &quot;analyst_checks&quot;: [
+    &quot;Inspect the task definition, executable, arguments, author, trigger, and authorization without executing it.&quot;,
+    &quot;Check logoff/reboot/session-reuse evidence and process-creation or task-scheduler logs.&quot;,
+    &quot;Seek independent evidence before concluding compromise or malicious persistence.&quot;
+  ],
+  &quot;analyst_note&quot;: null,
+  &quot;benign_explanations&quot;: [
+    &quot;An authorized administrator or installer may legitimately create a scheduled task.&quot;,
+    &quot;A maintenance or troubleshooting workflow may follow authentication retries.&quot;
+  ],
+  &quot;explanation&quot;: &quot;1 distinct task creation event(s) followed suspicious authentication within 15 minutes. Host and subject account/domain match the successful logon&#x27;s target account, and both use the same nonzero logon ID. The displayed source IP belongs to authentication, not necessarily the task. No intervening reuse of this host-scoped session ID is visible. Session IDs can be reused; compromise and malicious persistence require further evidence.&quot;,
+  &quot;finding_id&quot;: &quot;R3-76a07ac57291092ab410d13ecdd760f3a5e166c198ea482f1561d9c5e108d346&quot;,
+  &quot;first_utc&quot;: &quot;2026-01-15T09:00:00+00:00&quot;,
+  &quot;hostname&quot;: &quot;lab-pc01&quot;,
+  &quot;last_utc&quot;: &quot;2026-01-15T09:08:00+00:00&quot;,
+  &quot;related_finding_ids&quot;: [
+    &quot;R1-db715d04005f598ed152175425060760b252e1cac8009678aefd6fab2bbcdadf&quot;,
+    &quot;R2-51d98b0c5c015cd7f3cba0ce2c6eb7c460ee44466c02f00d0c8ec9cb915d3189&quot;
+  ],
+  &quot;rule_id&quot;: &quot;R3&quot;,
+  &quot;rule_name&quot;: &quot;Task creation following suspicious authentication&quot;,
+  &quot;rule_version&quot;: &quot;1.0.0&quot;,
+  &quot;severity&quot;: &quot;High&quot;,
+  &quot;severity_rationale&quot;: &quot;A task creation linked by host, account, time, and session to correlated authentication needs review; malicious persistence remains a hypothesis.&quot;,
+  &quot;source_ip&quot;: &quot;192.0.2.10&quot;,
+  &quot;supporting_event_keys&quot;: [
+    &quot;75ac8fd0308b5e0bee2354bd8cccc10de5327ec6f86add5e025b5ae27aabff82&quot;,
+    &quot;1dfda011dbe127b19aed027b04e313559b3198cb5e6fde29995f0ab39e12e336&quot;,
+    &quot;1138223c1a0ac56c27fe370dac28bda37ef7d94359d331cb701e7a4b9bc067f2&quot;,
+    &quot;38851c164e5eb4a1b1e955713ee627f3ef355ebf76be35fe37dcd5ef9cc57386&quot;,
+    &quot;7c7e218149ab589f0137d1dd3e3141a355ac674b0ad89fc7208ec6724348e599&quot;,
+    &quot;e8bd2740332db23f4601cfbacbd90d5b2e441e1214f23be5f75474a675fcfd01&quot;,
+    &quot;285ce62c6ebca44e31a5ec6de3a66a79aa201eb4c86144d628980ad81a0e39e2&quot;
+  ],
+  &quot;supporting_event_references&quot;: [
+    &quot;4af7c362bbb1c377077145074af3d034a6e319fe74495163eae7fec1c832c780:record:13&quot;,
+    &quot;4af7c362bbb1c377077145074af3d034a6e319fe74495163eae7fec1c832c780:record:14&quot;,
+    &quot;4af7c362bbb1c377077145074af3d034a6e319fe74495163eae7fec1c832c780:record:15&quot;,
+    &quot;4af7c362bbb1c377077145074af3d034a6e319fe74495163eae7fec1c832c780:record:16&quot;,
+    &quot;4af7c362bbb1c377077145074af3d034a6e319fe74495163eae7fec1c832c780:record:17&quot;,
+    &quot;4af7c362bbb1c377077145074af3d034a6e319fe74495163eae7fec1c832c780:record:18&quot;,
+    &quot;4af7c362bbb1c377077145074af3d034a6e319fe74495163eae7fec1c832c780:record:19&quot;
+  ]
+}</pre></section><section><h2>Previous-finding notes — not current findings</h2><pre>{}</pre></section><section><h2>Analyst observations, hypotheses and alternative explanations</h2><pre>{
+  &quot;alternative_explanations&quot;: &quot;&quot;,
+  &quot;hypotheses&quot;: &quot;&quot;,
+  &quot;observations&quot;: &quot;&quot;,
+  &quot;saved_at_utc&quot;: null
+}</pre></section><section><h2>Recommended containment and recovery actions</h2><pre>{
+  &quot;actions&quot;: [
+    {
+      &quot;category&quot;: &quot;containment&quot;,
+      &quot;description&quot;: &quot;Proposed for authorized review; no action recorded.&quot;,
+      &quot;performed_at_utc&quot;: null,
+      &quot;performed_record&quot;: &quot;&quot;,
+      &quot;status&quot;: &quot;proposed&quot;
+    },
+    {
+      &quot;category&quot;: &quot;recovery&quot;,
+      &quot;description&quot;: &quot;Proposed for authorized review; no action recorded.&quot;,
+      &quot;performed_at_utc&quot;: null,
+      &quot;performed_record&quot;: &quot;&quot;,
+      &quot;status&quot;: &quot;proposed&quot;
+    }
+  ],
+  &quot;status_policy&quot;: &quot;Proposed only unless the analyst records performed. Performed status is an analyst assertion, not independent verification. performed_at_utc is when that assertion was recorded.&quot;
+}</pre></section><section><h2>Validation errors — rejected source records</h2><pre>[]</pre></section><section><h2>Limitations and handling</h2><pre>[
+  &quot;Findings are hypotheses requiring analyst review, not proof of compromise or malicious persistence.&quot;,
+  &quot;Severity is investigation priority; analyst dispositions are separate judgments.&quot;,
+  &quot;Missing events, clock skew and reused host-scoped session IDs may affect correlations.&quot;,
+  &quot;A hash supports integrity checking from the time of hashing; it does not prove earlier authenticity, completeness or chain of custody.&quot;,
+  &quot;Only saved notes and conclusions are included; unsaved drafts are excluded.&quot;,
+  &quot;This report is not a restorable case backup. Preserve original exports separately.&quot;,
+  &quot;Exports contain sensitive evidence and analyst text; protect downloaded copies.&quot;
+]</pre></section><section><h2>Evidence that would help resolve uncertainty</h2><pre>[
+  &quot;Complete Security log exports with retention, audit-policy, host-clock and timezone context.&quot;,
+  &quot;User or administrator authorization and change records.&quot;,
+  &quot;Identity-provider/MFA records, endpoint process events and task-scheduler logs.&quot;,
+  &quot;Logoff/reboot records to evaluate reuse of host-scoped logon IDs.&quot;
+]</pre></section><section><h2>Evidence-handling record</h2><pre>[
+  {
+    &quot;at_utc&quot;: &quot;2026-11-18T08:12:45.322346+00:00&quot;,
+    &quot;byte_count&quot;: 2634,
+    &quot;filename&quot;: &quot;suspicious_sequence.synthetic.csv&quot;,
+    &quot;hash_scope&quot;: &quot;Exact original bytes before parsing&quot;,
+    &quot;import_id&quot;: &quot;import_1&quot;,
+    &quot;operation&quot;: &quot;import&quot;,
+    &quot;result&quot;: &quot;parsed&quot;,
+    &quot;sha256&quot;: &quot;4af7c362bbb1c377077145074af3d034a6e319fe74495163eae7fec1c832c780&quot;
+  }
+]</pre></section><section><h2>Evidence 1 — normalized event and original sources</h2><pre>{
+  &quot;event_key&quot;: &quot;8a656ac994b8b64eabd92b7d525fb738c9d799d6f9e21929b9594650424becea&quot;,
+  &quot;normalized_fields&quot;: {
+    &quot;channel&quot;: &quot;Security&quot;,
+    &quot;event_id&quot;: 4624,
+    &quot;hostname&quot;: &quot;lab-pc02&quot;,
+    &quot;logon_type&quot;: 3,
+    &quot;provider&quot;: &quot;Microsoft-Windows-Security-Auditing&quot;,
+    &quot;record_id&quot;: 2001,
+    &quot;source_ip&quot;: &quot;192.0.2.20&quot;,
+    &quot;subject_domain&quot;: null,
+    &quot;subject_logon_id&quot;: null,
+    &quot;subject_user&quot;: null,
+    &quot;target_domain&quot;: &quot;lab&quot;,
+    &quot;target_logon_id&quot;: &quot;0x5000&quot;,
+    &quot;target_user&quot;: &quot;bob&quot;,
+    &quot;task_content&quot;: null,
+    &quot;task_name&quot;: null,
+    &quot;timestamp&quot;: &quot;2026-01-15T07:01:00.000000Z&quot;
+  },
+  &quot;occurrences&quot;: [
+    {
+      &quot;assumed_timezone&quot;: null,
+      &quot;file_sha256&quot;: &quot;4af7c362bbb1c377077145074af3d034a6e319fe74495163eae7fec1c832c780&quot;,
+      &quot;filename&quot;: &quot;suspicious_sequence.synthetic.csv&quot;,
+      &quot;import_id&quot;: &quot;import_1&quot;,
+      &quot;line_end&quot;: 2,
+      &quot;line_start&quot;: 2,
+      &quot;occurrence_id&quot;: &quot;import_1:record:1&quot;,
+      &quot;original_fields&quot;: {
+        &quot;channel&quot;: &quot;Security&quot;,
+        &quot;event_id&quot;: &quot;4624&quot;,
+        &quot;hostname&quot;: &quot;LAB-PC02&quot;,
+        &quot;logon_type&quot;: &quot;3&quot;,
+        &quot;provider&quot;: &quot;Microsoft-Windows-Security-Auditing&quot;,
+        &quot;record_id&quot;: &quot;2001&quot;,
+        &quot;source_ip&quot;: &quot;192.0.2.20&quot;,
+        &quot;subject_domain&quot;: &quot;&quot;,
+        &quot;subject_logon_id&quot;: &quot;&quot;,
+        &quot;subject_user&quot;: &quot;&quot;,
+        &quot;target_domain&quot;: &quot;LAB&quot;,
+        &quot;target_logon_id&quot;: &quot;0x5000&quot;,
+        &quot;target_user&quot;: &quot;bob&quot;,
+        &quot;task_content&quot;: &quot;&quot;,
+        &quot;task_name&quot;: &quot;&quot;,
+        &quot;timestamp&quot;: &quot;2026-01-15T07:01:00Z&quot;
+      },
+      &quot;original_offset&quot;: &quot;Z&quot;,
+      &quot;original_timestamp&quot;: &quot;2026-01-15T07:01:00Z&quot;,
+      &quot;record_position&quot;: 1,
+      &quot;resolved_offset&quot;: &quot;+0000&quot;,
+      &quot;source_record&quot;: &quot;2026-01-15T07:01:00Z,4624,LAB-PC02,2001,Microsoft-Windows-Security-Auditing,Security,bob,LAB,,,192.0.2.20,3,0x5000,,,\n&quot;,
+      &quot;source_ref&quot;: &quot;4af7c362bbb1c377077145074af3d034a6e319fe74495163eae7fec1c832c780:record:1&quot;
+    }
+  ]
+}</pre></section><section><h2>Evidence 2 — normalized event and original sources</h2><pre>{
+  &quot;event_key&quot;: &quot;a7b7cf2650f61d4faeaf36eacbbc7a92f2db85ae9ab456f751256be66ee74252&quot;,
+  &quot;normalized_fields&quot;: {
+    &quot;channel&quot;: &quot;Security&quot;,
+    &quot;event_id&quot;: 4624,
+    &quot;hostname&quot;: &quot;lab-pc02&quot;,
+    &quot;logon_type&quot;: 3,
+    &quot;provider&quot;: &quot;Microsoft-Windows-Security-Auditing&quot;,
+    &quot;record_id&quot;: 2002,
+    &quot;source_ip&quot;: &quot;192.0.2.21&quot;,
+    &quot;subject_domain&quot;: null,
+    &quot;subject_logon_id&quot;: null,
+    &quot;subject_user&quot;: null,
+    &quot;target_domain&quot;: &quot;lab&quot;,
+    &quot;target_logon_id&quot;: &quot;0x5001&quot;,
+    &quot;target_user&quot;: &quot;dave&quot;,
+    &quot;task_content&quot;: null,
+    &quot;task_name&quot;: null,
+    &quot;timestamp&quot;: &quot;2026-01-15T07:11:00.000000Z&quot;
+  },
+  &quot;occurrences&quot;: [
+    {
+      &quot;assumed_timezone&quot;: null,
+      &quot;file_sha256&quot;: &quot;4af7c362bbb1c377077145074af3d034a6e319fe74495163eae7fec1c832c780&quot;,
+      &quot;filename&quot;: &quot;suspicious_sequence.synthetic.csv&quot;,
+      &quot;import_id&quot;: &quot;import_1&quot;,
+      &quot;line_end&quot;: 3,
+      &quot;line_start&quot;: 3,
+      &quot;occurrence_id&quot;: &quot;import_1:record:2&quot;,
+      &quot;original_fields&quot;: {
+        &quot;channel&quot;: &quot;Security&quot;,
+        &quot;event_id&quot;: &quot;4624&quot;,
+        &quot;hostname&quot;: &quot;LAB-PC02&quot;,
+        &quot;logon_type&quot;: &quot;3&quot;,
+        &quot;provider&quot;: &quot;Microsoft-Windows-Security-Auditing&quot;,
+        &quot;record_id&quot;: &quot;2002&quot;,
+        &quot;source_ip&quot;: &quot;192.0.2.21&quot;,
+        &quot;subject_domain&quot;: &quot;&quot;,
+        &quot;subject_logon_id&quot;: &quot;&quot;,
+        &quot;subject_user&quot;: &quot;&quot;,
+        &quot;target_domain&quot;: &quot;LAB&quot;,
+        &quot;target_logon_id&quot;: &quot;0x5001&quot;,
+        &quot;target_user&quot;: &quot;dave&quot;,
+        &quot;task_content&quot;: &quot;&quot;,
+        &quot;task_name&quot;: &quot;&quot;,
+        &quot;timestamp&quot;: &quot;2026-01-15T07:11:00Z&quot;
+      },
+      &quot;original_offset&quot;: &quot;Z&quot;,
+      &quot;original_timestamp&quot;: &quot;2026-01-15T07:11:00Z&quot;,
+      &quot;record_position&quot;: 2,
+      &quot;resolved_offset&quot;: &quot;+0000&quot;,
+      &quot;source_record&quot;: &quot;2026-01-15T07:11:00Z,4624,LAB-PC02,2002,Microsoft-Windows-Security-Auditing,Security,dave,LAB,,,192.0.2.21,3,0x5001,,,\n&quot;,
+      &quot;source_ref&quot;: &quot;4af7c362bbb1c377077145074af3d034a6e319fe74495163eae7fec1c832c780:record:2&quot;
+    }
+  ]
+}</pre></section><section><h2>Evidence 3 — normalized event and original sources</h2><pre>{
+  &quot;event_key&quot;: &quot;e82b7918a6f0571b9725abd8d176ebad4df247419bf7591079f7b29f77ba1a14&quot;,
+  &quot;normalized_fields&quot;: {
+    &quot;channel&quot;: &quot;Security&quot;,
+    &quot;event_id&quot;: 4624,
+    &quot;hostname&quot;: &quot;lab-pc02&quot;,
+    &quot;logon_type&quot;: 3,
+    &quot;provider&quot;: &quot;Microsoft-Windows-Security-Auditing&quot;,
+    &quot;record_id&quot;: 2003,
+    &quot;source_ip&quot;: &quot;192.0.2.20&quot;,
+    &quot;subject_domain&quot;: null,
+    &quot;subject_logon_id&quot;: null,
+    &quot;subject_user&quot;: null,
+    &quot;target_domain&quot;: &quot;lab&quot;,
+    &quot;target_logon_id&quot;: &quot;0x5002&quot;,
+    &quot;target_user&quot;: &quot;dave&quot;,
+    &quot;task_content&quot;: null,
+    &quot;task_name&quot;: null,
+    &quot;timestamp&quot;: &quot;2026-01-15T07:16:00.000000Z&quot;
+  },
+  &quot;occurrences&quot;: [
+    {
+      &quot;assumed_timezone&quot;: null,
+      &quot;file_sha256&quot;: &quot;4af7c362bbb1c377077145074af3d034a6e319fe74495163eae7fec1c832c780&quot;,
+      &quot;filename&quot;: &quot;suspicious_sequence.synthetic.csv&quot;,
+      &quot;import_id&quot;: &quot;import_1&quot;,
+      &quot;line_end&quot;: 4,
+      &quot;line_start&quot;: 4,
+      &quot;occurrence_id&quot;: &quot;import_1:record:3&quot;,
+      &quot;original_fields&quot;: {
+        &quot;channel&quot;: &quot;Security&quot;,
+        &quot;event_id&quot;: &quot;4624&quot;,
+        &quot;hostname&quot;: &quot;LAB-PC02&quot;,
+        &quot;logon_type&quot;: &quot;3&quot;,
+        &quot;provider&quot;: &quot;Microsoft-Windows-Security-Auditing&quot;,
+        &quot;record_id&quot;: &quot;2003&quot;,
+        &quot;source_ip&quot;: &quot;192.0.2.20&quot;,
+        &quot;subject_domain&quot;: &quot;&quot;,
+        &quot;subject_logon_id&quot;: &quot;&quot;,
+        &quot;subject_user&quot;: &quot;&quot;,
+        &quot;target_domain&quot;: &quot;LAB&quot;,
+        &quot;target_logon_id&quot;: &quot;0x5002&quot;,
+        &quot;target_user&quot;: &quot;dave&quot;,
+        &quot;task_content&quot;: &quot;&quot;,
+        &quot;task_name&quot;: &quot;&quot;,
+        &quot;timestamp&quot;: &quot;2026-01-15T07:16:00Z&quot;
+      },
+      &quot;original_offset&quot;: &quot;Z&quot;,
+      &quot;original_timestamp&quot;: &quot;2026-01-15T07:16:00Z&quot;,
+      &quot;record_position&quot;: 3,
+      &quot;resolved_offset&quot;: &quot;+0000&quot;,
+      &quot;source_record&quot;: &quot;2026-01-15T07:16:00Z,4624,LAB-PC02,2003,Microsoft-Windows-Security-Auditing,Security,dave,LAB,,,192.0.2.20,3,0x5002,,,\n&quot;,
+      &quot;source_ref&quot;: &quot;4af7c362bbb1c377077145074af3d034a6e319fe74495163eae7fec1c832c780:record:3&quot;
+    }
+  ]
+}</pre></section><section><h2>Evidence 4 — normalized event and original sources</h2><pre>{
+  &quot;event_key&quot;: &quot;3dc1942b390f9fd9d45d938abe7fd941b7291cbc0ef15a4e21b64984cd4940f6&quot;,
+  &quot;normalized_fields&quot;: {
+    &quot;channel&quot;: &quot;Security&quot;,
+    &quot;event_id&quot;: 4624,
+    &quot;hostname&quot;: &quot;lab-pc02&quot;,
+    &quot;logon_type&quot;: 3,
+    &quot;provider&quot;: &quot;Microsoft-Windows-Security-Auditing&quot;,
+    &quot;record_id&quot;: 2004,
+    &quot;source_ip&quot;: &quot;192.0.2.20&quot;,
+    &quot;subject_domain&quot;: null,
+    &quot;subject_logon_id&quot;: null,
+    &quot;subject_user&quot;: null,
+    &quot;target_domain&quot;: &quot;lab&quot;,
+    &quot;target_logon_id&quot;: &quot;0x5003&quot;,
+    &quot;target_user&quot;: &quot;bob&quot;,
+    &quot;task_content&quot;: null,
+    &quot;task_name&quot;: null,
+    &quot;timestamp&quot;: &quot;2026-01-15T07:26:00.000000Z&quot;
+  },
+  &quot;occurrences&quot;: [
+    {
+      &quot;assumed_timezone&quot;: null,
+      &quot;file_sha256&quot;: &quot;4af7c362bbb1c377077145074af3d034a6e319fe74495163eae7fec1c832c780&quot;,
+      &quot;filename&quot;: &quot;suspicious_sequence.synthetic.csv&quot;,
+      &quot;import_id&quot;: &quot;import_1&quot;,
+      &quot;line_end&quot;: 5,
+      &quot;line_start&quot;: 5,
+      &quot;occurrence_id&quot;: &quot;import_1:record:4&quot;,
+      &quot;original_fields&quot;: {
+        &quot;channel&quot;: &quot;Security&quot;,
+        &quot;event_id&quot;: &quot;4624&quot;,
+        &quot;hostname&quot;: &quot;LAB-PC02&quot;,
+        &quot;logon_type&quot;: &quot;3&quot;,
+        &quot;provider&quot;: &quot;Microsoft-Windows-Security-Auditing&quot;,
+        &quot;record_id&quot;: &quot;2004&quot;,
+        &quot;source_ip&quot;: &quot;192.0.2.20&quot;,
+        &quot;subject_domain&quot;: &quot;&quot;,
+        &quot;subject_logon_id&quot;: &quot;&quot;,
+        &quot;subject_user&quot;: &quot;&quot;,
+        &quot;target_domain&quot;: &quot;LAB&quot;,
+        &quot;target_logon_id&quot;: &quot;0x5003&quot;,
+        &quot;target_user&quot;: &quot;bob&quot;,
+        &quot;task_content&quot;: &quot;&quot;,
+        &quot;task_name&quot;: &quot;&quot;,
+        &quot;timestamp&quot;: &quot;2026-01-15T07:26:00Z&quot;
+      },
+      &quot;original_offset&quot;: &quot;Z&quot;,
+      &quot;original_timestamp&quot;: &quot;2026-01-15T07:26:00Z&quot;,
+      &quot;record_position&quot;: 4,
+      &quot;resolved_offset&quot;: &quot;+0000&quot;,
+      &quot;source_record&quot;: &quot;2026-01-15T07:26:00Z,4624,LAB-PC02,2004,Microsoft-Windows-Security-Auditing,Security,bob,LAB,,,192.0.2.20,3,0x5003,,,\n&quot;,
+      &quot;source_ref&quot;: &quot;4af7c362bbb1c377077145074af3d034a6e319fe74495163eae7fec1c832c780:record:4&quot;
+    }
+  ]
+}</pre></section><section><h2>Evidence 5 — normalized event and original sources</h2><pre>{
+  &quot;event_key&quot;: &quot;a600ec36c7f57e82638940d00e37dbcae3d192f7f4a902a18a5accccec4b175a&quot;,
+  &quot;normalized_fields&quot;: {
+    &quot;channel&quot;: &quot;Security&quot;,
+    &quot;event_id&quot;: 4624,
+    &quot;hostname&quot;: &quot;lab-pc02&quot;,
+    &quot;logon_type&quot;: 3,
+    &quot;provider&quot;: &quot;Microsoft-Windows-Security-Auditing&quot;,
+    &quot;record_id&quot;: 2005,
+    &quot;source_ip&quot;: &quot;192.0.2.21&quot;,
+    &quot;subject_domain&quot;: null,
+    &quot;subject_logon_id&quot;: null,
+    &quot;subject_user&quot;: null,
+    &quot;target_domain&quot;: &quot;lab&quot;,
+    &quot;target_logon_id&quot;: &quot;0x5004&quot;,
+    &quot;target_user&quot;: &quot;dave&quot;,
+    &quot;task_content&quot;: null,
+    &quot;task_name&quot;: null,
+    &quot;timestamp&quot;: &quot;2026-01-15T07:32:00.000000Z&quot;
+  },
+  &quot;occurrences&quot;: [
+    {
+      &quot;assumed_timezone&quot;: null,
+      &quot;file_sha256&quot;: &quot;4af7c362bbb1c377077145074af3d034a6e319fe74495163eae7fec1c832c780&quot;,
+      &quot;filename&quot;: &quot;suspicious_sequence.synthetic.csv&quot;,
+      &quot;import_id&quot;: &quot;import_1&quot;,
+      &quot;line_end&quot;: 6,
+      &quot;line_start&quot;: 6,
+      &quot;occurrence_id&quot;: &quot;import_1:record:5&quot;,
+      &quot;original_fields&quot;: {
+        &quot;channel&quot;: &quot;Security&quot;,
+        &quot;event_id&quot;: &quot;4624&quot;,
+        &quot;hostname&quot;: &quot;LAB-PC02&quot;,
+        &quot;logon_type&quot;: &quot;3&quot;,
+        &quot;provider&quot;: &quot;Microsoft-Windows-Security-Auditing&quot;,
+        &quot;record_id&quot;: &quot;2005&quot;,
+        &quot;source_ip&quot;: &quot;192.0.2.21&quot;,
+        &quot;subject_domain&quot;: &quot;&quot;,
+        &quot;subject_logon_id&quot;: &quot;&quot;,
+        &quot;subject_user&quot;: &quot;&quot;,
+        &quot;target_domain&quot;: &quot;LAB&quot;,
+        &quot;target_logon_id&quot;: &quot;0x5004&quot;,
+        &quot;target_user&quot;: &quot;dave&quot;,
+        &quot;task_content&quot;: &quot;&quot;,
+        &quot;task_name&quot;: &quot;&quot;,
+        &quot;timestamp&quot;: &quot;2026-01-15T07:32:00Z&quot;
+      },
+      &quot;original_offset&quot;: &quot;Z&quot;,
+      &quot;original_timestamp&quot;: &quot;2026-01-15T07:32:00Z&quot;,
+      &quot;record_position&quot;: 5,
+      &quot;resolved_offset&quot;: &quot;+0000&quot;,
+      &quot;source_record&quot;: &quot;2026-01-15T07:32:00Z,4624,LAB-PC02,2005,Microsoft-Windows-Security-Auditing,Security,dave,LAB,,,192.0.2.21,3,0x5004,,,\n&quot;,
+      &quot;source_ref&quot;: &quot;4af7c362bbb1c377077145074af3d034a6e319fe74495163eae7fec1c832c780:record:5&quot;
+    }
+  ]
+}</pre></section><section><h2>Evidence 6 — normalized event and original sources</h2><pre>{
+  &quot;event_key&quot;: &quot;bb1d0b42fc28c88d6eadd2607fad86549c88f89b8a0300ea0ed84d52c9333507&quot;,
+  &quot;normalized_fields&quot;: {
+    &quot;channel&quot;: &quot;Security&quot;,
+    &quot;event_id&quot;: 4624,
+    &quot;hostname&quot;: &quot;lab-pc02&quot;,
+    &quot;logon_type&quot;: 3,
+    &quot;provider&quot;: &quot;Microsoft-Windows-Security-Auditing&quot;,
+    &quot;record_id&quot;: 2006,
+    &quot;source_ip&quot;: &quot;192.0.2.21&quot;,
+    &quot;subject_domain&quot;: null,
+    &quot;subject_logon_id&quot;: null,
+    &quot;subject_user&quot;: null,
+    &quot;target_domain&quot;: &quot;lab&quot;,
+    &quot;target_logon_id&quot;: &quot;0x5005&quot;,
+    &quot;target_user&quot;: &quot;dave&quot;,
+    &quot;task_content&quot;: null,
+    &quot;task_name&quot;: null,
+    &quot;timestamp&quot;: &quot;2026-01-15T07:43:00.000000Z&quot;
+  },
+  &quot;occurrences&quot;: [
+    {
+      &quot;assumed_timezone&quot;: null,
+      &quot;file_sha256&quot;: &quot;4af7c362bbb1c377077145074af3d034a6e319fe74495163eae7fec1c832c780&quot;,
+      &quot;filename&quot;: &quot;suspicious_sequence.synthetic.csv&quot;,
+      &quot;import_id&quot;: &quot;import_1&quot;,
+      &quot;line_end&quot;: 7,
+      &quot;line_start&quot;: 7,
+      &quot;occurrence_id&quot;: &quot;import_1:record:6&quot;,
+      &quot;original_fields&quot;: {
+        &quot;channel&quot;: &quot;Security&quot;,
+        &quot;event_id&quot;: &quot;4624&quot;,
+        &quot;hostname&quot;: &quot;LAB-PC02&quot;,
+        &quot;logon_type&quot;: &quot;3&quot;,
+        &quot;provider&quot;: &quot;Microsoft-Windows-Security-Auditing&quot;,
+        &quot;record_id&quot;: &quot;2006&quot;,
+        &quot;source_ip&quot;: &quot;192.0.2.21&quot;,
+        &quot;subject_domain&quot;: &quot;&quot;,
+        &quot;subject_logon_id&quot;: &quot;&quot;,
+        &quot;subject_user&quot;: &quot;&quot;,
+        &quot;target_domain&quot;: &quot;LAB&quot;,
+        &quot;target_logon_id&quot;: &quot;0x5005&quot;,
+        &quot;target_user&quot;: &quot;dave&quot;,
+        &quot;task_content&quot;: &quot;&quot;,
+        &quot;task_name&quot;: &quot;&quot;,
+        &quot;timestamp&quot;: &quot;2026-01-15T07:43:00Z&quot;
+      },
+      &quot;original_offset&quot;: &quot;Z&quot;,
+      &quot;original_timestamp&quot;: &quot;2026-01-15T07:43:00Z&quot;,
+      &quot;record_position&quot;: 6,
+      &quot;resolved_offset&quot;: &quot;+0000&quot;,
+      &quot;source_record&quot;: &quot;2026-01-15T07:43:00Z,4624,LAB-PC02,2006,Microsoft-Windows-Security-Auditing,Security,dave,LAB,,,192.0.2.21,3,0x5005,,,\n&quot;,
+      &quot;source_ref&quot;: &quot;4af7c362bbb1c377077145074af3d034a6e319fe74495163eae7fec1c832c780:record:6&quot;
+    }
+  ]
+}</pre></section><section><h2>Evidence 7 — normalized event and original sources</h2><pre>{
+  &quot;event_key&quot;: &quot;7292fc315c675bb897dab428699e2b6b2586c450d6269972b6b5e4c65b8e1c74&quot;,
+  &quot;normalized_fields&quot;: {
+    &quot;channel&quot;: &quot;Security&quot;,
+    &quot;event_id&quot;: 4624,
+    &quot;hostname&quot;: &quot;lab-pc02&quot;,
+    &quot;logon_type&quot;: 3,
+    &quot;provider&quot;: &quot;Microsoft-Windows-Security-Auditing&quot;,
+    &quot;record_id&quot;: 2007,
+    &quot;source_ip&quot;: &quot;192.0.2.20&quot;,
+    &quot;subject_domain&quot;: null,
+    &quot;subject_logon_id&quot;: null,
+    &quot;subject_user&quot;: null,
+    &quot;target_domain&quot;: &quot;lab&quot;,
+    &quot;target_logon_id&quot;: &quot;0x5006&quot;,
+    &quot;target_user&quot;: &quot;carol&quot;,
+    &quot;task_content&quot;: null,
+    &quot;task_name&quot;: null,
+    &quot;timestamp&quot;: &quot;2026-01-15T07:51:00.000000Z&quot;
+  },
+  &quot;occurrences&quot;: [
+    {
+      &quot;assumed_timezone&quot;: null,
+      &quot;file_sha256&quot;: &quot;4af7c362bbb1c377077145074af3d034a6e319fe74495163eae7fec1c832c780&quot;,
+      &quot;filename&quot;: &quot;suspicious_sequence.synthetic.csv&quot;,
+      &quot;import_id&quot;: &quot;import_1&quot;,
+      &quot;line_end&quot;: 8,
+      &quot;line_start&quot;: 8,
+      &quot;occurrence_id&quot;: &quot;import_1:record:7&quot;,
+      &quot;original_fields&quot;: {
+        &quot;channel&quot;: &quot;Security&quot;,
+        &quot;event_id&quot;: &quot;4624&quot;,
+        &quot;hostname&quot;: &quot;LAB-PC02&quot;,
+        &quot;logon_type&quot;: &quot;3&quot;,
+        &quot;provider&quot;: &quot;Microsoft-Windows-Security-Auditing&quot;,
+        &quot;record_id&quot;: &quot;2007&quot;,
+        &quot;source_ip&quot;: &quot;192.0.2.20&quot;,
+        &quot;subject_domain&quot;: &quot;&quot;,
+        &quot;subject_logon_id&quot;: &quot;&quot;,
+        &quot;subject_user&quot;: &quot;&quot;,
+        &quot;target_domain&quot;: &quot;LAB&quot;,
+        &quot;target_logon_id&quot;: &quot;0x5006&quot;,
+        &quot;target_user&quot;: &quot;carol&quot;,
+        &quot;task_content&quot;: &quot;&quot;,
+        &quot;task_name&quot;: &quot;&quot;,
+        &quot;timestamp&quot;: &quot;2026-01-15T07:51:00Z&quot;
+      },
+      &quot;original_offset&quot;: &quot;Z&quot;,
+      &quot;original_timestamp&quot;: &quot;2026-01-15T07:51:00Z&quot;,
+      &quot;record_position&quot;: 7,
+      &quot;resolved_offset&quot;: &quot;+0000&quot;,
+      &quot;source_record&quot;: &quot;2026-01-15T07:51:00Z,4624,LAB-PC02,2007,Microsoft-Windows-Security-Auditing,Security,carol,LAB,,,192.0.2.20,3,0x5006,,,\n&quot;,
+      &quot;source_ref&quot;: &quot;4af7c362bbb1c377077145074af3d034a6e319fe74495163eae7fec1c832c780:record:7&quot;
+    }
+  ]
+}</pre></section><section><h2>Evidence 8 — normalized event and original sources</h2><pre>{
+  &quot;event_key&quot;: &quot;34fb9b9f16b126473d16477fa3d98edca4e77aa0fb08cdce6b706323a554a8ba&quot;,
+  &quot;normalized_fields&quot;: {
+    &quot;channel&quot;: &quot;Security&quot;,
+    &quot;event_id&quot;: 4624,
+    &quot;hostname&quot;: &quot;lab-pc02&quot;,
+    &quot;logon_type&quot;: 3,
+    &quot;provider&quot;: &quot;Microsoft-Windows-Security-Auditing&quot;,
+    &quot;record_id&quot;: 2008,
+    &quot;source_ip&quot;: &quot;192.0.2.21&quot;,
+    &quot;subject_domain&quot;: null,
+    &quot;subject_logon_id&quot;: null,
+    &quot;subject_user&quot;: null,
+    &quot;target_domain&quot;: &quot;lab&quot;,
+    &quot;target_logon_id&quot;: &quot;0x5007&quot;,
+    &quot;target_user&quot;: &quot;dave&quot;,
+    &quot;task_content&quot;: null,
+    &quot;task_name&quot;: null,
+    &quot;timestamp&quot;: &quot;2026-01-15T07:59:00.000000Z&quot;
+  },
+  &quot;occurrences&quot;: [
+    {
+      &quot;assumed_timezone&quot;: null,
+      &quot;file_sha256&quot;: &quot;4af7c362bbb1c377077145074af3d034a6e319fe74495163eae7fec1c832c780&quot;,
+      &quot;filename&quot;: &quot;suspicious_sequence.synthetic.csv&quot;,
+      &quot;import_id&quot;: &quot;import_1&quot;,
+      &quot;line_end&quot;: 9,
+      &quot;line_start&quot;: 9,
+      &quot;occurrence_id&quot;: &quot;import_1:record:8&quot;,
+      &quot;original_fields&quot;: {
+        &quot;channel&quot;: &quot;Security&quot;,
+        &quot;event_id&quot;: &quot;4624&quot;,
+        &quot;hostname&quot;: &quot;LAB-PC02&quot;,
+        &quot;logon_type&quot;: &quot;3&quot;,
+        &quot;provider&quot;: &quot;Microsoft-Windows-Security-Auditing&quot;,
+        &quot;record_id&quot;: &quot;2008&quot;,
+        &quot;source_ip&quot;: &quot;192.0.2.21&quot;,
+        &quot;subject_domain&quot;: &quot;&quot;,
+        &quot;subject_logon_id&quot;: &quot;&quot;,
+        &quot;subject_user&quot;: &quot;&quot;,
+        &quot;target_domain&quot;: &quot;LAB&quot;,
+        &quot;target_logon_id&quot;: &quot;0x5007&quot;,
+        &quot;target_user&quot;: &quot;dave&quot;,
+        &quot;task_content&quot;: &quot;&quot;,
+        &quot;task_name&quot;: &quot;&quot;,
+        &quot;timestamp&quot;: &quot;2026-01-15T07:59:00Z&quot;
+      },
+      &quot;original_offset&quot;: &quot;Z&quot;,
+      &quot;original_timestamp&quot;: &quot;2026-01-15T07:59:00Z&quot;,
+      &quot;record_position&quot;: 8,
+      &quot;resolved_offset&quot;: &quot;+0000&quot;,
+      &quot;source_record&quot;: &quot;2026-01-15T07:59:00Z,4624,LAB-PC02,2008,Microsoft-Windows-Security-Auditing,Security,dave,LAB,,,192.0.2.21,3,0x5007,,,\n&quot;,
+      &quot;source_ref&quot;: &quot;4af7c362bbb1c377077145074af3d034a6e319fe74495163eae7fec1c832c780:record:8&quot;
+    }
+  ]
+}</pre></section><section><h2>Evidence 9 — normalized event and original sources</h2><pre>{
+  &quot;event_key&quot;: &quot;bad8bdf748ba2f2c765202d5949159f0fdec8530f78f606f9477c7a6a0712428&quot;,
+  &quot;normalized_fields&quot;: {
+    &quot;channel&quot;: &quot;Security&quot;,
+    &quot;event_id&quot;: 4624,
+    &quot;hostname&quot;: &quot;lab-pc02&quot;,
+    &quot;logon_type&quot;: 3,
+    &quot;provider&quot;: &quot;Microsoft-Windows-Security-Auditing&quot;,
+    &quot;record_id&quot;: 2009,
+    &quot;source_ip&quot;: &quot;192.0.2.20&quot;,
+    &quot;subject_domain&quot;: null,
+    &quot;subject_logon_id&quot;: null,
+    &quot;subject_user&quot;: null,
+    &quot;target_domain&quot;: &quot;lab&quot;,
+    &quot;target_logon_id&quot;: &quot;0x5008&quot;,
+    &quot;target_user&quot;: &quot;dave&quot;,
+    &quot;task_content&quot;: null,
+    &quot;task_name&quot;: null,
+    &quot;timestamp&quot;: &quot;2026-01-15T08:04:00.000000Z&quot;
+  },
+  &quot;occurrences&quot;: [
+    {
+      &quot;assumed_timezone&quot;: null,
+      &quot;file_sha256&quot;: &quot;4af7c362bbb1c377077145074af3d034a6e319fe74495163eae7fec1c832c780&quot;,
+      &quot;filename&quot;: &quot;suspicious_sequence.synthetic.csv&quot;,
+      &quot;import_id&quot;: &quot;import_1&quot;,
+      &quot;line_end&quot;: 10,
+      &quot;line_start&quot;: 10,
+      &quot;occurrence_id&quot;: &quot;import_1:record:9&quot;,
+      &quot;original_fields&quot;: {
+        &quot;channel&quot;: &quot;Security&quot;,
+        &quot;event_id&quot;: &quot;4624&quot;,
+        &quot;hostname&quot;: &quot;LAB-PC02&quot;,
+        &quot;logon_type&quot;: &quot;3&quot;,
+        &quot;provider&quot;: &quot;Microsoft-Windows-Security-Auditing&quot;,
+        &quot;record_id&quot;: &quot;2009&quot;,
+        &quot;source_ip&quot;: &quot;192.0.2.20&quot;,
+        &quot;subject_domain&quot;: &quot;&quot;,
+        &quot;subject_logon_id&quot;: &quot;&quot;,
+        &quot;subject_user&quot;: &quot;&quot;,
+        &quot;target_domain&quot;: &quot;LAB&quot;,
+        &quot;target_logon_id&quot;: &quot;0x5008&quot;,
+        &quot;target_user&quot;: &quot;dave&quot;,
+        &quot;task_content&quot;: &quot;&quot;,
+        &quot;task_name&quot;: &quot;&quot;,
+        &quot;timestamp&quot;: &quot;2026-01-15T08:04:00Z&quot;
+      },
+      &quot;original_offset&quot;: &quot;Z&quot;,
+      &quot;original_timestamp&quot;: &quot;2026-01-15T08:04:00Z&quot;,
+      &quot;record_position&quot;: 9,
+      &quot;resolved_offset&quot;: &quot;+0000&quot;,
+      &quot;source_record&quot;: &quot;2026-01-15T08:04:00Z,4624,LAB-PC02,2009,Microsoft-Windows-Security-Auditing,Security,dave,LAB,,,192.0.2.20,3,0x5008,,,\n&quot;,
+      &quot;source_ref&quot;: &quot;4af7c362bbb1c377077145074af3d034a6e319fe74495163eae7fec1c832c780:record:9&quot;
+    }
+  ]
+}</pre></section><section><h2>Evidence 10 — normalized event and original sources</h2><pre>{
+  &quot;event_key&quot;: &quot;80952ce1b88e675b11e7774ac69f1bb1634d75686f4acaad29dad7ad80c17319&quot;,
+  &quot;normalized_fields&quot;: {
+    &quot;channel&quot;: &quot;Security&quot;,
+    &quot;event_id&quot;: 4624,
+    &quot;hostname&quot;: &quot;lab-pc02&quot;,
+    &quot;logon_type&quot;: 3,
+    &quot;provider&quot;: &quot;Microsoft-Windows-Security-Auditing&quot;,
+    &quot;record_id&quot;: 2010,
+    &quot;source_ip&quot;: &quot;192.0.2.21&quot;,
+    &quot;subject_domain&quot;: null,
+    &quot;subject_logon_id&quot;: null,
+    &quot;subject_user&quot;: null,
+    &quot;target_domain&quot;: &quot;lab&quot;,
+    &quot;target_logon_id&quot;: &quot;0x5009&quot;,
+    &quot;target_user&quot;: &quot;carol&quot;,
+    &quot;task_content&quot;: null,
+    &quot;task_name&quot;: null,
+    &quot;timestamp&quot;: &quot;2026-01-15T08:13:00.000000Z&quot;
+  },
+  &quot;occurrences&quot;: [
+    {
+      &quot;assumed_timezone&quot;: null,
+      &quot;file_sha256&quot;: &quot;4af7c362bbb1c377077145074af3d034a6e319fe74495163eae7fec1c832c780&quot;,
+      &quot;filename&quot;: &quot;suspicious_sequence.synthetic.csv&quot;,
+      &quot;import_id&quot;: &quot;import_1&quot;,
+      &quot;line_end&quot;: 11,
+      &quot;line_start&quot;: 11,
+      &quot;occurrence_id&quot;: &quot;import_1:record:10&quot;,
+      &quot;original_fields&quot;: {
+        &quot;channel&quot;: &quot;Security&quot;,
+        &quot;event_id&quot;: &quot;4624&quot;,
+        &quot;hostname&quot;: &quot;LAB-PC02&quot;,
+        &quot;logon_type&quot;: &quot;3&quot;,
+        &quot;provider&quot;: &quot;Microsoft-Windows-Security-Auditing&quot;,
+        &quot;record_id&quot;: &quot;2010&quot;,
+        &quot;source_ip&quot;: &quot;192.0.2.21&quot;,
+        &quot;subject_domain&quot;: &quot;&quot;,
+        &quot;subject_logon_id&quot;: &quot;&quot;,
+        &quot;subject_user&quot;: &quot;&quot;,
+        &quot;target_domain&quot;: &quot;LAB&quot;,
+        &quot;target_logon_id&quot;: &quot;0x5009&quot;,
+        &quot;target_user&quot;: &quot;carol&quot;,
+        &quot;task_content&quot;: &quot;&quot;,
+        &quot;task_name&quot;: &quot;&quot;,
+        &quot;timestamp&quot;: &quot;2026-01-15T08:13:00Z&quot;
+      },
+      &quot;original_offset&quot;: &quot;Z&quot;,
+      &quot;original_timestamp&quot;: &quot;2026-01-15T08:13:00Z&quot;,
+      &quot;record_position&quot;: 10,
+      &quot;resolved_offset&quot;: &quot;+0000&quot;,
+      &quot;source_record&quot;: &quot;2026-01-15T08:13:00Z,4624,LAB-PC02,2010,Microsoft-Windows-Security-Auditing,Security,carol,LAB,,,192.0.2.21,3,0x5009,,,\n&quot;,
+      &quot;source_ref&quot;: &quot;4af7c362bbb1c377077145074af3d034a6e319fe74495163eae7fec1c832c780:record:10&quot;
+    }
+  ]
+}</pre></section><section><h2>Evidence 11 — normalized event and original sources</h2><pre>{
+  &quot;event_key&quot;: &quot;974b18d9a08fb04439ed28fc90909ab6cf04f444860feef37d5de91daefdab26&quot;,
+  &quot;normalized_fields&quot;: {
+    &quot;channel&quot;: &quot;Security&quot;,
+    &quot;event_id&quot;: 4624,
+    &quot;hostname&quot;: &quot;lab-pc02&quot;,
+    &quot;logon_type&quot;: 3,
+    &quot;provider&quot;: &quot;Microsoft-Windows-Security-Auditing&quot;,
+    &quot;record_id&quot;: 2011,
+    &quot;source_ip&quot;: &quot;192.0.2.20&quot;,
+    &quot;subject_domain&quot;: null,
+    &quot;subject_logon_id&quot;: null,
+    &quot;subject_user&quot;: null,
+    &quot;target_domain&quot;: &quot;lab&quot;,
+    &quot;target_logon_id&quot;: &quot;0x500a&quot;,
+    &quot;target_user&quot;: &quot;bob&quot;,
+    &quot;task_content&quot;: null,
+    &quot;task_name&quot;: null,
+    &quot;timestamp&quot;: &quot;2026-01-15T08:21:00.000000Z&quot;
+  },
+  &quot;occurrences&quot;: [
+    {
+      &quot;assumed_timezone&quot;: null,
+      &quot;file_sha256&quot;: &quot;4af7c362bbb1c377077145074af3d034a6e319fe74495163eae7fec1c832c780&quot;,
+      &quot;filename&quot;: &quot;suspicious_sequence.synthetic.csv&quot;,
+      &quot;import_id&quot;: &quot;import_1&quot;,
+      &quot;line_end&quot;: 12,
+      &quot;line_start&quot;: 12,
+      &quot;occurrence_id&quot;: &quot;import_1:record:11&quot;,
+      &quot;original_fields&quot;: {
+        &quot;channel&quot;: &quot;Security&quot;,
+        &quot;event_id&quot;: &quot;4624&quot;,
+        &quot;hostname&quot;: &quot;LAB-PC02&quot;,
+        &quot;logon_type&quot;: &quot;3&quot;,
+        &quot;provider&quot;: &quot;Microsoft-Windows-Security-Auditing&quot;,
+        &quot;record_id&quot;: &quot;2011&quot;,
+        &quot;source_ip&quot;: &quot;192.0.2.20&quot;,
+        &quot;subject_domain&quot;: &quot;&quot;,
+        &quot;subject_logon_id&quot;: &quot;&quot;,
+        &quot;subject_user&quot;: &quot;&quot;,
+        &quot;target_domain&quot;: &quot;LAB&quot;,
+        &quot;target_logon_id&quot;: &quot;0x500a&quot;,
+        &quot;target_user&quot;: &quot;bob&quot;,
+        &quot;task_content&quot;: &quot;&quot;,
+        &quot;task_name&quot;: &quot;&quot;,
+        &quot;timestamp&quot;: &quot;2026-01-15T08:21:00Z&quot;
+      },
+      &quot;original_offset&quot;: &quot;Z&quot;,
+      &quot;original_timestamp&quot;: &quot;2026-01-15T08:21:00Z&quot;,
+      &quot;record_position&quot;: 11,
+      &quot;resolved_offset&quot;: &quot;+0000&quot;,
+      &quot;source_record&quot;: &quot;2026-01-15T08:21:00Z,4624,LAB-PC02,2011,Microsoft-Windows-Security-Auditing,Security,bob,LAB,,,192.0.2.20,3,0x500a,,,\n&quot;,
+      &quot;source_ref&quot;: &quot;4af7c362bbb1c377077145074af3d034a6e319fe74495163eae7fec1c832c780:record:11&quot;
+    }
+  ]
+}</pre></section><section><h2>Evidence 12 — normalized event and original sources</h2><pre>{
+  &quot;event_key&quot;: &quot;0366134746d669464fa7e57d2595543fcb8cf28f948f1f480e3bb6e53f9c7e79&quot;,
+  &quot;normalized_fields&quot;: {
+    &quot;channel&quot;: &quot;Security&quot;,
+    &quot;event_id&quot;: 4624,
+    &quot;hostname&quot;: &quot;lab-pc02&quot;,
+    &quot;logon_type&quot;: 3,
+    &quot;provider&quot;: &quot;Microsoft-Windows-Security-Auditing&quot;,
+    &quot;record_id&quot;: 2012,
+    &quot;source_ip&quot;: &quot;192.0.2.21&quot;,
+    &quot;subject_domain&quot;: null,
+    &quot;subject_logon_id&quot;: null,
+    &quot;subject_user&quot;: null,
+    &quot;target_domain&quot;: &quot;lab&quot;,
+    &quot;target_logon_id&quot;: &quot;0x500b&quot;,
+    &quot;target_user&quot;: &quot;bob&quot;,
+    &quot;task_content&quot;: null,
+    &quot;task_name&quot;: null,
+    &quot;timestamp&quot;: &quot;2026-01-15T08:30:00.000000Z&quot;
+  },
+  &quot;occurrences&quot;: [
+    {
+      &quot;assumed_timezone&quot;: null,
+      &quot;file_sha256&quot;: &quot;4af7c362bbb1c377077145074af3d034a6e319fe74495163eae7fec1c832c780&quot;,
+      &quot;filename&quot;: &quot;suspicious_sequence.synthetic.csv&quot;,
+      &quot;import_id&quot;: &quot;import_1&quot;,
+      &quot;line_end&quot;: 13,
+      &quot;line_start&quot;: 13,
+      &quot;occurrence_id&quot;: &quot;import_1:record:12&quot;,
+      &quot;original_fields&quot;: {
+        &quot;channel&quot;: &quot;Security&quot;,
+        &quot;event_id&quot;: &quot;4624&quot;,
+        &quot;hostname&quot;: &quot;LAB-PC02&quot;,
+        &quot;logon_type&quot;: &quot;3&quot;,
+        &quot;provider&quot;: &quot;Microsoft-Windows-Security-Auditing&quot;,
+        &quot;record_id&quot;: &quot;2012&quot;,
+        &quot;source_ip&quot;: &quot;192.0.2.21&quot;,
+        &quot;subject_domain&quot;: &quot;&quot;,
+        &quot;subject_logon_id&quot;: &quot;&quot;,
+        &quot;subject_user&quot;: &quot;&quot;,
+        &quot;target_domain&quot;: &quot;LAB&quot;,
+        &quot;target_logon_id&quot;: &quot;0x500b&quot;,
+        &quot;target_user&quot;: &quot;bob&quot;,
+        &quot;task_content&quot;: &quot;&quot;,
+        &quot;task_name&quot;: &quot;&quot;,
+        &quot;timestamp&quot;: &quot;2026-01-15T08:30:00Z&quot;
+      },
+      &quot;original_offset&quot;: &quot;Z&quot;,
+      &quot;original_timestamp&quot;: &quot;2026-01-15T08:30:00Z&quot;,
+      &quot;record_position&quot;: 12,
+      &quot;resolved_offset&quot;: &quot;+0000&quot;,
+      &quot;source_record&quot;: &quot;2026-01-15T08:30:00Z,4624,LAB-PC02,2012,Microsoft-Windows-Security-Auditing,Security,bob,LAB,,,192.0.2.21,3,0x500b,,,\n&quot;,
+      &quot;source_ref&quot;: &quot;4af7c362bbb1c377077145074af3d034a6e319fe74495163eae7fec1c832c780:record:12&quot;
+    }
+  ]
+}</pre></section><section><h2>Evidence 13 — normalized event and original sources</h2><pre>{
+  &quot;event_key&quot;: &quot;75ac8fd0308b5e0bee2354bd8cccc10de5327ec6f86add5e025b5ae27aabff82&quot;,
+  &quot;normalized_fields&quot;: {
+    &quot;channel&quot;: &quot;Security&quot;,
+    &quot;event_id&quot;: 4625,
+    &quot;hostname&quot;: &quot;lab-pc01&quot;,
+    &quot;logon_type&quot;: 3,
+    &quot;provider&quot;: &quot;Microsoft-Windows-Security-Auditing&quot;,
+    &quot;record_id&quot;: 2101,
+    &quot;source_ip&quot;: &quot;192.0.2.10&quot;,
+    &quot;subject_domain&quot;: null,
+    &quot;subject_logon_id&quot;: null,
+    &quot;subject_user&quot;: null,
+    &quot;target_domain&quot;: &quot;lab&quot;,
+    &quot;target_logon_id&quot;: null,
+    &quot;target_user&quot;: &quot;alice&quot;,
+    &quot;task_content&quot;: null,
+    &quot;task_name&quot;: null,
+    &quot;timestamp&quot;: &quot;2026-01-15T09:00:00.000000Z&quot;
+  },
+  &quot;occurrences&quot;: [
+    {
+      &quot;assumed_timezone&quot;: null,
+      &quot;file_sha256&quot;: &quot;4af7c362bbb1c377077145074af3d034a6e319fe74495163eae7fec1c832c780&quot;,
+      &quot;filename&quot;: &quot;suspicious_sequence.synthetic.csv&quot;,
+      &quot;import_id&quot;: &quot;import_1&quot;,
+      &quot;line_end&quot;: 14,
+      &quot;line_start&quot;: 14,
+      &quot;occurrence_id&quot;: &quot;import_1:record:13&quot;,
+      &quot;original_fields&quot;: {
+        &quot;channel&quot;: &quot;Security&quot;,
+        &quot;event_id&quot;: &quot;4625&quot;,
+        &quot;hostname&quot;: &quot;LAB-PC01&quot;,
+        &quot;logon_type&quot;: &quot;3&quot;,
+        &quot;provider&quot;: &quot;Microsoft-Windows-Security-Auditing&quot;,
+        &quot;record_id&quot;: &quot;2101&quot;,
+        &quot;source_ip&quot;: &quot;192.0.2.10&quot;,
+        &quot;subject_domain&quot;: &quot;&quot;,
+        &quot;subject_logon_id&quot;: &quot;&quot;,
+        &quot;subject_user&quot;: &quot;&quot;,
+        &quot;target_domain&quot;: &quot;LAB&quot;,
+        &quot;target_logon_id&quot;: &quot;&quot;,
+        &quot;target_user&quot;: &quot;alice&quot;,
+        &quot;task_content&quot;: &quot;&quot;,
+        &quot;task_name&quot;: &quot;&quot;,
+        &quot;timestamp&quot;: &quot;2026-01-15T09:00:00Z&quot;
+      },
+      &quot;original_offset&quot;: &quot;Z&quot;,
+      &quot;original_timestamp&quot;: &quot;2026-01-15T09:00:00Z&quot;,
+      &quot;record_position&quot;: 13,
+      &quot;resolved_offset&quot;: &quot;+0000&quot;,
+      &quot;source_record&quot;: &quot;2026-01-15T09:00:00Z,4625,LAB-PC01,2101,Microsoft-Windows-Security-Auditing,Security,alice,LAB,,,192.0.2.10,3,,,,\n&quot;,
+      &quot;source_ref&quot;: &quot;4af7c362bbb1c377077145074af3d034a6e319fe74495163eae7fec1c832c780:record:13&quot;
+    }
+  ]
+}</pre></section><section><h2>Evidence 14 — normalized event and original sources</h2><pre>{
+  &quot;event_key&quot;: &quot;1dfda011dbe127b19aed027b04e313559b3198cb5e6fde29995f0ab39e12e336&quot;,
+  &quot;normalized_fields&quot;: {
+    &quot;channel&quot;: &quot;Security&quot;,
+    &quot;event_id&quot;: 4625,
+    &quot;hostname&quot;: &quot;lab-pc01&quot;,
+    &quot;logon_type&quot;: 3,
+    &quot;provider&quot;: &quot;Microsoft-Windows-Security-Auditing&quot;,
+    &quot;record_id&quot;: 2102,
+    &quot;source_ip&quot;: &quot;192.0.2.10&quot;,
+    &quot;subject_domain&quot;: null,
+    &quot;subject_logon_id&quot;: null,
+    &quot;subject_user&quot;: null,
+    &quot;target_domain&quot;: &quot;lab&quot;,
+    &quot;target_logon_id&quot;: null,
+    &quot;target_user&quot;: &quot;alice&quot;,
+    &quot;task_content&quot;: null,
+    &quot;task_name&quot;: null,
+    &quot;timestamp&quot;: &quot;2026-01-15T09:01:00.000000Z&quot;
+  },
+  &quot;occurrences&quot;: [
+    {
+      &quot;assumed_timezone&quot;: null,
+      &quot;file_sha256&quot;: &quot;4af7c362bbb1c377077145074af3d034a6e319fe74495163eae7fec1c832c780&quot;,
+      &quot;filename&quot;: &quot;suspicious_sequence.synthetic.csv&quot;,
+      &quot;import_id&quot;: &quot;import_1&quot;,
+      &quot;line_end&quot;: 15,
+      &quot;line_start&quot;: 15,
+      &quot;occurrence_id&quot;: &quot;import_1:record:14&quot;,
+      &quot;original_fields&quot;: {
+        &quot;channel&quot;: &quot;Security&quot;,
+        &quot;event_id&quot;: &quot;4625&quot;,
+        &quot;hostname&quot;: &quot;LAB-PC01&quot;,
+        &quot;logon_type&quot;: &quot;3&quot;,
+        &quot;provider&quot;: &quot;Microsoft-Windows-Security-Auditing&quot;,
+        &quot;record_id&quot;: &quot;2102&quot;,
+        &quot;source_ip&quot;: &quot;192.0.2.10&quot;,
+        &quot;subject_domain&quot;: &quot;&quot;,
+        &quot;subject_logon_id&quot;: &quot;&quot;,
+        &quot;subject_user&quot;: &quot;&quot;,
+        &quot;target_domain&quot;: &quot;LAB&quot;,
+        &quot;target_logon_id&quot;: &quot;&quot;,
+        &quot;target_user&quot;: &quot;alice&quot;,
+        &quot;task_content&quot;: &quot;&quot;,
+        &quot;task_name&quot;: &quot;&quot;,
+        &quot;timestamp&quot;: &quot;2026-01-15T09:01:00Z&quot;
+      },
+      &quot;original_offset&quot;: &quot;Z&quot;,
+      &quot;original_timestamp&quot;: &quot;2026-01-15T09:01:00Z&quot;,
+      &quot;record_position&quot;: 14,
+      &quot;resolved_offset&quot;: &quot;+0000&quot;,
+      &quot;source_record&quot;: &quot;2026-01-15T09:01:00Z,4625,LAB-PC01,2102,Microsoft-Windows-Security-Auditing,Security,alice,LAB,,,192.0.2.10,3,,,,\n&quot;,
+      &quot;source_ref&quot;: &quot;4af7c362bbb1c377077145074af3d034a6e319fe74495163eae7fec1c832c780:record:14&quot;
+    }
+  ]
+}</pre></section><section><h2>Evidence 15 — normalized event and original sources</h2><pre>{
+  &quot;event_key&quot;: &quot;1138223c1a0ac56c27fe370dac28bda37ef7d94359d331cb701e7a4b9bc067f2&quot;,
+  &quot;normalized_fields&quot;: {
+    &quot;channel&quot;: &quot;Security&quot;,
+    &quot;event_id&quot;: 4625,
+    &quot;hostname&quot;: &quot;lab-pc01&quot;,
+    &quot;logon_type&quot;: 3,
+    &quot;provider&quot;: &quot;Microsoft-Windows-Security-Auditing&quot;,
+    &quot;record_id&quot;: 2103,
+    &quot;source_ip&quot;: &quot;192.0.2.10&quot;,
+    &quot;subject_domain&quot;: null,
+    &quot;subject_logon_id&quot;: null,
+    &quot;subject_user&quot;: null,
+    &quot;target_domain&quot;: &quot;lab&quot;,
+    &quot;target_logon_id&quot;: null,
+    &quot;target_user&quot;: &quot;alice&quot;,
+    &quot;task_content&quot;: null,
+    &quot;task_name&quot;: null,
+    &quot;timestamp&quot;: &quot;2026-01-15T09:02:00.000000Z&quot;
+  },
+  &quot;occurrences&quot;: [
+    {
+      &quot;assumed_timezone&quot;: null,
+      &quot;file_sha256&quot;: &quot;4af7c362bbb1c377077145074af3d034a6e319fe74495163eae7fec1c832c780&quot;,
+      &quot;filename&quot;: &quot;suspicious_sequence.synthetic.csv&quot;,
+      &quot;import_id&quot;: &quot;import_1&quot;,
+      &quot;line_end&quot;: 16,
+      &quot;line_start&quot;: 16,
+      &quot;occurrence_id&quot;: &quot;import_1:record:15&quot;,
+      &quot;original_fields&quot;: {
+        &quot;channel&quot;: &quot;Security&quot;,
+        &quot;event_id&quot;: &quot;4625&quot;,
+        &quot;hostname&quot;: &quot;LAB-PC01&quot;,
+        &quot;logon_type&quot;: &quot;3&quot;,
+        &quot;provider&quot;: &quot;Microsoft-Windows-Security-Auditing&quot;,
+        &quot;record_id&quot;: &quot;2103&quot;,
+        &quot;source_ip&quot;: &quot;192.0.2.10&quot;,
+        &quot;subject_domain&quot;: &quot;&quot;,
+        &quot;subject_logon_id&quot;: &quot;&quot;,
+        &quot;subject_user&quot;: &quot;&quot;,
+        &quot;target_domain&quot;: &quot;LAB&quot;,
+        &quot;target_logon_id&quot;: &quot;&quot;,
+        &quot;target_user&quot;: &quot;alice&quot;,
+        &quot;task_content&quot;: &quot;&quot;,
+        &quot;task_name&quot;: &quot;&quot;,
+        &quot;timestamp&quot;: &quot;2026-01-15T09:02:00Z&quot;
+      },
+      &quot;original_offset&quot;: &quot;Z&quot;,
+      &quot;original_timestamp&quot;: &quot;2026-01-15T09:02:00Z&quot;,
+      &quot;record_position&quot;: 15,
+      &quot;resolved_offset&quot;: &quot;+0000&quot;,
+      &quot;source_record&quot;: &quot;2026-01-15T09:02:00Z,4625,LAB-PC01,2103,Microsoft-Windows-Security-Auditing,Security,alice,LAB,,,192.0.2.10,3,,,,\n&quot;,
+      &quot;source_ref&quot;: &quot;4af7c362bbb1c377077145074af3d034a6e319fe74495163eae7fec1c832c780:record:15&quot;
+    }
+  ]
+}</pre></section><section><h2>Evidence 16 — normalized event and original sources</h2><pre>{
+  &quot;event_key&quot;: &quot;38851c164e5eb4a1b1e955713ee627f3ef355ebf76be35fe37dcd5ef9cc57386&quot;,
+  &quot;normalized_fields&quot;: {
+    &quot;channel&quot;: &quot;Security&quot;,
+    &quot;event_id&quot;: 4625,
+    &quot;hostname&quot;: &quot;lab-pc01&quot;,
+    &quot;logon_type&quot;: 3,
+    &quot;provider&quot;: &quot;Microsoft-Windows-Security-Auditing&quot;,
+    &quot;record_id&quot;: 2104,
+    &quot;source_ip&quot;: &quot;192.0.2.10&quot;,
+    &quot;subject_domain&quot;: null,
+    &quot;subject_logon_id&quot;: null,
+    &quot;subject_user&quot;: null,
+    &quot;target_domain&quot;: &quot;lab&quot;,
+    &quot;target_logon_id&quot;: null,
+    &quot;target_user&quot;: &quot;alice&quot;,
+    &quot;task_content&quot;: null,
+    &quot;task_name&quot;: null,
+    &quot;timestamp&quot;: &quot;2026-01-15T09:03:00.000000Z&quot;
+  },
+  &quot;occurrences&quot;: [
+    {
+      &quot;assumed_timezone&quot;: null,
+      &quot;file_sha256&quot;: &quot;4af7c362bbb1c377077145074af3d034a6e319fe74495163eae7fec1c832c780&quot;,
+      &quot;filename&quot;: &quot;suspicious_sequence.synthetic.csv&quot;,
+      &quot;import_id&quot;: &quot;import_1&quot;,
+      &quot;line_end&quot;: 17,
+      &quot;line_start&quot;: 17,
+      &quot;occurrence_id&quot;: &quot;import_1:record:16&quot;,
+      &quot;original_fields&quot;: {
+        &quot;channel&quot;: &quot;Security&quot;,
+        &quot;event_id&quot;: &quot;4625&quot;,
+        &quot;hostname&quot;: &quot;LAB-PC01&quot;,
+        &quot;logon_type&quot;: &quot;3&quot;,
+        &quot;provider&quot;: &quot;Microsoft-Windows-Security-Auditing&quot;,
+        &quot;record_id&quot;: &quot;2104&quot;,
+        &quot;source_ip&quot;: &quot;192.0.2.10&quot;,
+        &quot;subject_domain&quot;: &quot;&quot;,
+        &quot;subject_logon_id&quot;: &quot;&quot;,
+        &quot;subject_user&quot;: &quot;&quot;,
+        &quot;target_domain&quot;: &quot;LAB&quot;,
+        &quot;target_logon_id&quot;: &quot;&quot;,
+        &quot;target_user&quot;: &quot;alice&quot;,
+        &quot;task_content&quot;: &quot;&quot;,
+        &quot;task_name&quot;: &quot;&quot;,
+        &quot;timestamp&quot;: &quot;2026-01-15T09:03:00Z&quot;
+      },
+      &quot;original_offset&quot;: &quot;Z&quot;,
+      &quot;original_timestamp&quot;: &quot;2026-01-15T09:03:00Z&quot;,
+      &quot;record_position&quot;: 16,
+      &quot;resolved_offset&quot;: &quot;+0000&quot;,
+      &quot;source_record&quot;: &quot;2026-01-15T09:03:00Z,4625,LAB-PC01,2104,Microsoft-Windows-Security-Auditing,Security,alice,LAB,,,192.0.2.10,3,,,,\n&quot;,
+      &quot;source_ref&quot;: &quot;4af7c362bbb1c377077145074af3d034a6e319fe74495163eae7fec1c832c780:record:16&quot;
+    }
+  ]
+}</pre></section><section><h2>Evidence 17 — normalized event and original sources</h2><pre>{
+  &quot;event_key&quot;: &quot;7c7e218149ab589f0137d1dd3e3141a355ac674b0ad89fc7208ec6724348e599&quot;,
+  &quot;normalized_fields&quot;: {
+    &quot;channel&quot;: &quot;Security&quot;,
+    &quot;event_id&quot;: 4625,
+    &quot;hostname&quot;: &quot;lab-pc01&quot;,
+    &quot;logon_type&quot;: 3,
+    &quot;provider&quot;: &quot;Microsoft-Windows-Security-Auditing&quot;,
+    &quot;record_id&quot;: 2105,
+    &quot;source_ip&quot;: &quot;192.0.2.10&quot;,
+    &quot;subject_domain&quot;: null,
+    &quot;subject_logon_id&quot;: null,
+    &quot;subject_user&quot;: null,
+    &quot;target_domain&quot;: &quot;lab&quot;,
+    &quot;target_logon_id&quot;: null,
+    &quot;target_user&quot;: &quot;alice&quot;,
+    &quot;task_content&quot;: null,
+    &quot;task_name&quot;: null,
+    &quot;timestamp&quot;: &quot;2026-01-15T09:04:00.000000Z&quot;
+  },
+  &quot;occurrences&quot;: [
+    {
+      &quot;assumed_timezone&quot;: null,
+      &quot;file_sha256&quot;: &quot;4af7c362bbb1c377077145074af3d034a6e319fe74495163eae7fec1c832c780&quot;,
+      &quot;filename&quot;: &quot;suspicious_sequence.synthetic.csv&quot;,
+      &quot;import_id&quot;: &quot;import_1&quot;,
+      &quot;line_end&quot;: 18,
+      &quot;line_start&quot;: 18,
+      &quot;occurrence_id&quot;: &quot;import_1:record:17&quot;,
+      &quot;original_fields&quot;: {
+        &quot;channel&quot;: &quot;Security&quot;,
+        &quot;event_id&quot;: &quot;4625&quot;,
+        &quot;hostname&quot;: &quot;LAB-PC01&quot;,
+        &quot;logon_type&quot;: &quot;3&quot;,
+        &quot;provider&quot;: &quot;Microsoft-Windows-Security-Auditing&quot;,
+        &quot;record_id&quot;: &quot;2105&quot;,
+        &quot;source_ip&quot;: &quot;192.0.2.10&quot;,
+        &quot;subject_domain&quot;: &quot;&quot;,
+        &quot;subject_logon_id&quot;: &quot;&quot;,
+        &quot;subject_user&quot;: &quot;&quot;,
+        &quot;target_domain&quot;: &quot;LAB&quot;,
+        &quot;target_logon_id&quot;: &quot;&quot;,
+        &quot;target_user&quot;: &quot;alice&quot;,
+        &quot;task_content&quot;: &quot;&quot;,
+        &quot;task_name&quot;: &quot;&quot;,
+        &quot;timestamp&quot;: &quot;2026-01-15T09:04:00Z&quot;
+      },
+      &quot;original_offset&quot;: &quot;Z&quot;,
+      &quot;original_timestamp&quot;: &quot;2026-01-15T09:04:00Z&quot;,
+      &quot;record_position&quot;: 17,
+      &quot;resolved_offset&quot;: &quot;+0000&quot;,
+      &quot;source_record&quot;: &quot;2026-01-15T09:04:00Z,4625,LAB-PC01,2105,Microsoft-Windows-Security-Auditing,Security,alice,LAB,,,192.0.2.10,3,,,,\n&quot;,
+      &quot;source_ref&quot;: &quot;4af7c362bbb1c377077145074af3d034a6e319fe74495163eae7fec1c832c780:record:17&quot;
+    }
+  ]
+}</pre></section><section><h2>Evidence 18 — normalized event and original sources</h2><pre>{
+  &quot;event_key&quot;: &quot;e8bd2740332db23f4601cfbacbd90d5b2e441e1214f23be5f75474a675fcfd01&quot;,
+  &quot;normalized_fields&quot;: {
+    &quot;channel&quot;: &quot;Security&quot;,
+    &quot;event_id&quot;: 4624,
+    &quot;hostname&quot;: &quot;lab-pc01&quot;,
+    &quot;logon_type&quot;: 3,
+    &quot;provider&quot;: &quot;Microsoft-Windows-Security-Auditing&quot;,
+    &quot;record_id&quot;: 2106,
+    &quot;source_ip&quot;: &quot;192.0.2.10&quot;,
+    &quot;subject_domain&quot;: null,
+    &quot;subject_logon_id&quot;: null,
+    &quot;subject_user&quot;: null,
+    &quot;target_domain&quot;: &quot;lab&quot;,
+    &quot;target_logon_id&quot;: &quot;0x1234&quot;,
+    &quot;target_user&quot;: &quot;alice&quot;,
+    &quot;task_content&quot;: null,
+    &quot;task_name&quot;: null,
+    &quot;timestamp&quot;: &quot;2026-01-15T09:05:00.000000Z&quot;
+  },
+  &quot;occurrences&quot;: [
+    {
+      &quot;assumed_timezone&quot;: null,
+      &quot;file_sha256&quot;: &quot;4af7c362bbb1c377077145074af3d034a6e319fe74495163eae7fec1c832c780&quot;,
+      &quot;filename&quot;: &quot;suspicious_sequence.synthetic.csv&quot;,
+      &quot;import_id&quot;: &quot;import_1&quot;,
+      &quot;line_end&quot;: 19,
+      &quot;line_start&quot;: 19,
+      &quot;occurrence_id&quot;: &quot;import_1:record:18&quot;,
+      &quot;original_fields&quot;: {
+        &quot;channel&quot;: &quot;Security&quot;,
+        &quot;event_id&quot;: &quot;4624&quot;,
+        &quot;hostname&quot;: &quot;LAB-PC01&quot;,
+        &quot;logon_type&quot;: &quot;3&quot;,
+        &quot;provider&quot;: &quot;Microsoft-Windows-Security-Auditing&quot;,
+        &quot;record_id&quot;: &quot;2106&quot;,
+        &quot;source_ip&quot;: &quot;192.0.2.10&quot;,
+        &quot;subject_domain&quot;: &quot;&quot;,
+        &quot;subject_logon_id&quot;: &quot;&quot;,
+        &quot;subject_user&quot;: &quot;&quot;,
+        &quot;target_domain&quot;: &quot;LAB&quot;,
+        &quot;target_logon_id&quot;: &quot;0x1234&quot;,
+        &quot;target_user&quot;: &quot;alice&quot;,
+        &quot;task_content&quot;: &quot;&quot;,
+        &quot;task_name&quot;: &quot;&quot;,
+        &quot;timestamp&quot;: &quot;2026-01-15T09:05:00Z&quot;
+      },
+      &quot;original_offset&quot;: &quot;Z&quot;,
+      &quot;original_timestamp&quot;: &quot;2026-01-15T09:05:00Z&quot;,
+      &quot;record_position&quot;: 18,
+      &quot;resolved_offset&quot;: &quot;+0000&quot;,
+      &quot;source_record&quot;: &quot;2026-01-15T09:05:00Z,4624,LAB-PC01,2106,Microsoft-Windows-Security-Auditing,Security,alice,LAB,,,192.0.2.10,3,0x1234,,,\n&quot;,
+      &quot;source_ref&quot;: &quot;4af7c362bbb1c377077145074af3d034a6e319fe74495163eae7fec1c832c780:record:18&quot;
+    }
+  ]
+}</pre></section><section><h2>Evidence 19 — normalized event and original sources</h2><pre>{
+  &quot;event_key&quot;: &quot;285ce62c6ebca44e31a5ec6de3a66a79aa201eb4c86144d628980ad81a0e39e2&quot;,
+  &quot;normalized_fields&quot;: {
+    &quot;channel&quot;: &quot;Security&quot;,
+    &quot;event_id&quot;: 4698,
+    &quot;hostname&quot;: &quot;lab-pc01&quot;,
+    &quot;logon_type&quot;: null,
+    &quot;provider&quot;: &quot;Microsoft-Windows-Security-Auditing&quot;,
+    &quot;record_id&quot;: 2107,
+    &quot;source_ip&quot;: null,
+    &quot;subject_domain&quot;: &quot;lab&quot;,
+    &quot;subject_logon_id&quot;: &quot;0x1234&quot;,
+    &quot;subject_user&quot;: &quot;alice&quot;,
+    &quot;target_domain&quot;: null,
+    &quot;target_logon_id&quot;: null,
+    &quot;target_user&quot;: null,
+    &quot;task_content&quot;: &quot;&lt;Task version=\&quot;1.2\&quot;&gt;&lt;Actions&gt;&lt;Exec&gt;&lt;Command&gt;cmd.exe&lt;/Command&gt;&lt;Arguments&gt;/c echo SHIELD56_SYNTHETIC_MARKER&amp;gt; \&quot;%TEMP%\\shield56_synthetic_marker.txt\&quot;&lt;/Arguments&gt;&lt;/Exec&gt;&lt;/Actions&gt;&lt;/Task&gt;&quot;,
+    &quot;task_name&quot;: &quot;\\Shield56\\SyntheticSequenceMarker&quot;,
+    &quot;timestamp&quot;: &quot;2026-01-15T09:08:00.000000Z&quot;
+  },
+  &quot;occurrences&quot;: [
+    {
+      &quot;assumed_timezone&quot;: null,
+      &quot;file_sha256&quot;: &quot;4af7c362bbb1c377077145074af3d034a6e319fe74495163eae7fec1c832c780&quot;,
+      &quot;filename&quot;: &quot;suspicious_sequence.synthetic.csv&quot;,
+      &quot;import_id&quot;: &quot;import_1&quot;,
+      &quot;line_end&quot;: 20,
+      &quot;line_start&quot;: 20,
+      &quot;occurrence_id&quot;: &quot;import_1:record:19&quot;,
+      &quot;original_fields&quot;: {
+        &quot;channel&quot;: &quot;Security&quot;,
+        &quot;event_id&quot;: &quot;4698&quot;,
+        &quot;hostname&quot;: &quot;LAB-PC01&quot;,
+        &quot;logon_type&quot;: &quot;&quot;,
+        &quot;provider&quot;: &quot;Microsoft-Windows-Security-Auditing&quot;,
+        &quot;record_id&quot;: &quot;2107&quot;,
+        &quot;source_ip&quot;: &quot;&quot;,
+        &quot;subject_domain&quot;: &quot;LAB&quot;,
+        &quot;subject_logon_id&quot;: &quot;0x1234&quot;,
+        &quot;subject_user&quot;: &quot;alice&quot;,
+        &quot;target_domain&quot;: &quot;&quot;,
+        &quot;target_logon_id&quot;: &quot;&quot;,
+        &quot;target_user&quot;: &quot;&quot;,
+        &quot;task_content&quot;: &quot;&lt;Task version=\&quot;1.2\&quot;&gt;&lt;Actions&gt;&lt;Exec&gt;&lt;Command&gt;cmd.exe&lt;/Command&gt;&lt;Arguments&gt;/c echo SHIELD56_SYNTHETIC_MARKER&amp;gt; \&quot;%TEMP%\\shield56_synthetic_marker.txt\&quot;&lt;/Arguments&gt;&lt;/Exec&gt;&lt;/Actions&gt;&lt;/Task&gt;&quot;,
+        &quot;task_name&quot;: &quot;\\Shield56\\SyntheticSequenceMarker&quot;,
+        &quot;timestamp&quot;: &quot;2026-01-15T09:08:00Z&quot;
+      },
+      &quot;original_offset&quot;: &quot;Z&quot;,
+      &quot;original_timestamp&quot;: &quot;2026-01-15T09:08:00Z&quot;,
+      &quot;record_position&quot;: 19,
+      &quot;resolved_offset&quot;: &quot;+0000&quot;,
+      &quot;source_record&quot;: &quot;2026-01-15T09:08:00Z,4698,LAB-PC01,2107,Microsoft-Windows-Security-Auditing,Security,,,alice,LAB,,,,0x1234,\\Shield56\\SyntheticSequenceMarker,\&quot;&lt;Task version=\&quot;\&quot;1.2\&quot;\&quot;&gt;&lt;Actions&gt;&lt;Exec&gt;&lt;Command&gt;cmd.exe&lt;/Command&gt;&lt;Arguments&gt;/c echo SHIELD56_SYNTHETIC_MARKER&amp;gt; \&quot;\&quot;%TEMP%\\shield56_synthetic_marker.txt\&quot;\&quot;&lt;/Arguments&gt;&lt;/Exec&gt;&lt;/Actions&gt;&lt;/Task&gt;\&quot;\n&quot;,
+      &quot;source_ref&quot;: &quot;4af7c362bbb1c377077145074af3d034a6e319fe74495163eae7fec1c832c780:record:19&quot;
+    }
+  ]
+}</pre></section></body></html>

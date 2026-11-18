@@ -1,0 +1,42 @@
+{
+  "project": "Shield 56",
+  "synthetic": true,
+  "purpose": "Evaluation only. Never import or read this file from the runtime analyzer.",
+  "scenario_date": "2026-01-15",
+  "evaluation_rule_contract": {
+    "R1": "Five or more distinct 4625 events within an inclusive five-minute rolling window grouped by hostname, target_domain, target_user and source_ip, not logon_type. Merge qualifying windows sharing a failure into one episode retaining their union of supporting records.",
+    "R2": "A 4624 strictly after the final R1 failure and no more than ten minutes later, matching R1 grouping fields and the final failed logon's non-null logon_type. Assign to nearest compatible episode, then choose the earliest success per episode. Supporting IDs include failures and selected success.",
+    "R3": "One or more 4698 events strictly after the selected R2 success and no more than fifteen minutes later, same host and subject account/domain matching the success target, matching nonzero session IDs, and no visible intervening reuse. Aggregate matching tasks per success. Supporting IDs include failures, success, and every matching task; task source_ip is not required."
+  },
+  "scenarios": {
+    "normal_activity": {
+      "input_count": 15,
+      "expected_findings": [],
+      "routine_task_record_ids": [1201]
+    },
+    "suspicious_sequence": {
+      "input_count": 19,
+      "expected_findings": [
+        {"rule_id": "R1", "supporting_record_ids": [2101, 2102, 2103, 2104, 2105]},
+        {"rule_id": "R2", "supporting_record_ids": [2101, 2102, 2103, 2104, 2105, 2106]},
+        {"rule_id": "R3", "supporting_record_ids": [2101, 2102, 2103, 2104, 2105, 2106, 2107]}
+      ],
+      "account": {"domain": "LAB", "user": "alice"},
+      "hostname": "LAB-PC01",
+      "source_ip": "192.0.2.10",
+      "logon_id": "0x1234"
+    },
+    "edge_cases": {
+      "input_count": 10,
+      "schema_valid_rows": 8,
+      "unique_valid_records": 7,
+      "duplicate_record_ids": [3001],
+      "invalid_timestamp_record_ids": [3003, 3004],
+      "missing_source_ip_record_ids": [3005],
+      "equal_utc_timestamp_record_ids": [3006, 3007],
+      "unknown_event_record_ids": [3008],
+      "html_like_text_record_ids": [3009],
+      "expected_findings": []
+    }
+  }
+}

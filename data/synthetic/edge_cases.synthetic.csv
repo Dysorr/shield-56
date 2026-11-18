@@ -1,0 +1,11 @@
+timestamp,event_id,hostname,record_id,provider,channel,target_user,target_domain,subject_user,subject_domain,source_ip,logon_type,target_logon_id,subject_logon_id,task_name,task_content
+2026-01-15T12:02:00Z,4624,LAB-PC02,3001,Microsoft-Windows-Security-Auditing,Security,edge_user,LAB,,,192.0.2.30,3,0x7777,,,
+2026-01-15T12:00:00Z,4624,LAB-PC02,3002,Microsoft-Windows-Security-Auditing,Security,edge_user,LAB,,,192.0.2.30,3,0x7777,,,
+2026-01-15T12:02:00Z,4624,LAB-PC02,3001,Microsoft-Windows-Security-Auditing,Security,edge_user,LAB,,,192.0.2.30,3,0x7777,,,
+not-a-timestamp,4624,LAB-PC02,3003,Microsoft-Windows-Security-Auditing,Security,edge_user,LAB,,,192.0.2.30,3,0x7777,,,
+2026-01-15T12:03:00,4624,LAB-PC02,3004,Microsoft-Windows-Security-Auditing,Security,edge_user,LAB,,,192.0.2.30,3,0x7777,,,
+2026-01-15T12:04:00Z,4624,LAB-PC02,3005,Microsoft-Windows-Security-Auditing,Security,edge_user,LAB,,,,3,0x7777,,,
+2026-01-15T15:05:00+03:00,4624,LAB-PC02,3006,Microsoft-Windows-Security-Auditing,Security,edge_user,LAB,,,192.0.2.30,3,0x7777,,,
+2026-01-15T07:05:00-05:00,4624,LAB-PC02,3007,Microsoft-Windows-Security-Auditing,Security,edge_user,LAB,,,192.0.2.30,3,0x7777,,,
+2026-01-15T12:06:00Z,65000,LAB-PC02,3008,Microsoft-Windows-Security-Auditing,Security,,,,,,,,,,
+2026-01-15T12:07:00Z,4698,LAB-PC02,3009,Microsoft-Windows-Security-Auditing,Security,,,lab_admin,LAB,,,,0x8888,<script>alert('SYNTHETIC ONLY')</script>,"<Task version=""1.2""><Actions><Exec><Command>cmd.exe</Command><Arguments>/c echo SHIELD56_SYNTHETIC_MARKER&gt; ""%TEMP%\shield56_synthetic_marker.txt""</Arguments></Exec></Actions></Task>"
