@@ -1,6 +1,6 @@
 # Shield 56 — Security Incident Timeline Analyzer
 
-A Python/Streamlit cybersecurity portfolio project for answering:
+A Python/Streamlit cybersecurity project for answering:
 **Did repeated failed Windows logons lead to a successful session and subsequent
 scheduled-task creation—and what evidence supports that interpretation?**
 
